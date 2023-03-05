@@ -1,6 +1,8 @@
 import { View, Text, Switch } from 'react-native'
 import React, { useState } from 'react'
 
+// TODO: Add a way to delete an alarm by swiping left on it.
+
 const Alarm = () => {
 
     const [isEnabled, setIsEnabled] = useState(false);
@@ -13,7 +15,7 @@ const Alarm = () => {
             <Text className="text-white text-base">everyday</Text>
         </View>
         <Switch
-            trackColor={{ false: "#dcdcdc", true: "#8ada6f" }}
+            trackColor={{ false: "#dcdcdc", true: "#8ada6f"}}
             thumbColor={isEnabled ? "#FFF" : "#FFF"}
             ios_backgroundColor="#dcdcdc"
             onValueChange={toggleSwitch}
@@ -22,5 +24,5 @@ const Alarm = () => {
     </View>
   )
 }
-
+// switch color  8ada6f     3e9950    47FF2E
 export default Alarm
