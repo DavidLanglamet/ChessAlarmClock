@@ -9,14 +9,20 @@ const HomeScreen = () => {
   const [alarms, setAlarms] = useState([]);
 
   const handleAddAlarm = () => {
-    setAlarms([...alarms, <Alarm key={alarms.length} />]);
+    const newAlarm = { id: Date.now() };
+    setAlarms([...alarms, newAlarm]);
+  };
+
+  const deleteAlarm = (id) => {
+    const filteredAlarms = alarms.filter((alarm) => alarm.id !== id);
+    setAlarms(filteredAlarms);
   };
 
   useLayoutEffect(() => {
       navigation.setOptions({
           headerShown: false,
       });
-  }, [])
+  }, []);
 
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
@@ -24,8 +30,12 @@ const HomeScreen = () => {
         <Text className="my-20 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
         <AlarmSettings/>
         <ScrollView className="h-80 mx-5">
-          <Alarm />
-          {alarms}
+          {/* This is where the Alarms will go! */}
+          {
+            alarms.map((alarm) => (
+              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} />
+            ))
+          }
         </ScrollView>
         <View className="items-center my-8">
           <TouchableOpacity className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={handleAddAlarm}>
@@ -46,37 +56,3 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen;
-
-
-
-
-
-
-
-/* OLD VERSION WITH THE BOX AROUND ALL ALARMS
-
-  return (
-    <SafeAreaView className="bg-[#303840] flex-1">
-      <View>
-          <Text className="my-20 text-2xl text-center text-white font-bold ">Hello Tinypixel</Text>
-          <ScrollView className="bg-[#59626e] rounded-xl h-80 mx-5">
-            <View className="flex-row items-center rounded-xl bg-[#7b8899] px-6 py-4 mx-2 my-2">
-              <View className="flex-1">
-                <Text className="text-white text-5xl tracking-widest">12:30</Text>
-                <Text className="text-white text-base">everyday</Text>
-              </View>
-              <Switch></Switch>
-            </View>
-          </ScrollView>
-          <View className="items-center my-8">
-            <TouchableOpacity className="bg-[#59626e] rounded-full items-center h-16 w-16 justify-center">
-              <Text className="text-white text-5xl font-light">+</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-
-          </View>
-      </View>
-    </SafeAreaView>
-  )
-*/
