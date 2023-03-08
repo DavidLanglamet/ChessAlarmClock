@@ -1,7 +1,7 @@
 // Version of using actual timePicker. File: AlarmSettings.js
 
 import React, {useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View, TouchableOpacity, Button} from 'react-native';
+import {Alert, Modal, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 // https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
@@ -9,12 +9,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 // TODO: The plus button on the homescreen should open it and clicking an alarm too
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
-// Clicking above the modal discards changes too.
+// add functionality of setting time of alarms and so on.
 // remove AM/PM column
 
-const AlarmSettings = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-
+const AlarmSettings = ({modalVisible, setModalVisible}) => {
   const [date, setDate] = useState(new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -70,19 +68,19 @@ const AlarmSettings = () => {
                 />
               </View>
               <View className="flex-row mx-3 items-center justify-between">
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
-                <TouchableOpacity className="w-1/12 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
                 </TouchableOpacity>
               </View>
               <View className="flex-row p-10 justify-center">
@@ -98,11 +96,6 @@ const AlarmSettings = () => {
           </View>
         </View>
       </Modal>
-      <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={() => setModalVisible(true)}>
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable>
     </View>
   );
 };
@@ -148,18 +141,6 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
-  },
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    alignItems: 'center',
-  },
-  box: {
-    width: '12%',
-    height: 40,
-    backgroundColor: 'green',
-    borderRadius: 10,
   },
 });
 
