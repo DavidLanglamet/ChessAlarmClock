@@ -18,7 +18,7 @@ const Alarm = ({ deleteAlarm, alarm }) => {
         </View>
       )
     };
-
+    
   return (
     <Swipeable
       renderRightActions={RightActions}
