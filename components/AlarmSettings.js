@@ -68,26 +68,46 @@ const AlarmSettings = ({modalVisible, setModalVisible}) => {
                 />
               </View>
               <View className="flex-row mx-3 items-center justify-between">
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
-                <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
-                </TouchableOpacity>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Mo</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Tu</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">We</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Th</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Fr</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Sa</Text>
+                </View>
+                <View className="items-center">
+                  <TouchableOpacity className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2">
+                  </TouchableOpacity>
+                  <Text className="text-white my-2">Su</Text>
+                </View>
               </View>
-              <View className="flex-row p-10 justify-center">
+              <View className="flex-row p-10 justify-center space-x-44">
                 <TouchableOpacity>
                   <Text className="text-red-500 font-bold text-xl">Delete</Text>
                 </TouchableOpacity>
-                <View className="w-52"></View>
                 <TouchableOpacity>
                   <Text className="text-green-400 font-bold text-xl">Save</Text>
                 </TouchableOpacity>

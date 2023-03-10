@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 
+// TODO: Check if pressing + twice quickly causes problems
+
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [alarms, setAlarms] = useState([]);
@@ -35,7 +37,7 @@ const HomeScreen = () => {
           {/* This is where the Alarms will go! */}
           {
             alarms.map((alarm) => (
-              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} />
+              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} />
             ))
           }
         </ScrollView>
@@ -46,10 +48,10 @@ const HomeScreen = () => {
           <Text className="text-white text-5xl font-light">+</Text>
         </TouchableOpacity>
         </View>
-        <View className="flex-row items-center px-6 py-9 mx-5">
-          <View className="flex-1">
+        <View className="flex-row items-center justify-center space-x-44 my-7">
+          <TouchableOpacity>
             <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity className="bg-white rounded-full items-center h-16 w-16 justify-center">
 
           </TouchableOpacity>
