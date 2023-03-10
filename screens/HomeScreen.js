@@ -29,6 +29,8 @@ const HomeScreen = () => {
       });
   }, []);
 
+
+
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
       <View>
