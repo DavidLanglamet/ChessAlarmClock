@@ -34,8 +34,8 @@ const HomeScreen = () => {
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
       <View>
-        <Text className="my-20 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
-        <ScrollView className="h-80 mx-5">
+        <Text className="my-16 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
+        <ScrollView className="h-1/2 mx-5">
           {/* This is where the Alarms will go! */}
           {
             alarms.map((alarm) => (
@@ -50,7 +50,7 @@ const HomeScreen = () => {
           <Text className="text-white text-5xl font-light">+</Text>
         </TouchableOpacity>
         </View>
-        <View className="flex-row items-center justify-center space-x-44 my-7">
+        <View className="flex-row items-center justify-center space-x-44 my-2">
           <TouchableOpacity>
             <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
           </TouchableOpacity>

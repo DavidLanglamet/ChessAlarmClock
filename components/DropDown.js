@@ -1,3 +1,76 @@
+/*
+
+const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Apple', value: 'apple'},
+    {label: 'Banana', value: 'banana'}
+  ]);
+
+<DropDownPicker className="bg-[#59626e]"
+                    open={open}
+                    value={value}
+                    items={items}
+                    zIndex={0}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+
+*/
+
+
+
+/*
+
+{DaysAreVisible && (
+                  <View className="flex-row mx-3 items-center justify-between">
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                      <View style={{backgroundColor: boxColor}} className="w-8 h-8  rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Mo</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Tu</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">We</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Th</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Fr</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Sa</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity className="items-center">
+                      <View className="w-8 h-8 bg-[#70d24e] rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                      <Text className="text-white my-2">Su</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+
+*/
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
 // Version of using actual timePicker. File: AlarmSettings.js
 
 import React, {useState} from 'react';
@@ -63,20 +136,15 @@ const AlarmSettings = ({modalVisible, setModalVisible}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
-  const [boxColors, setBoxColors] = useState([
-    '#282e36', // Monday
-    '#282e36', // Tuesday
-    '#282e36', // Wednesday
-    '#282e36', // Thursday
-    '#282e36', // Friday
-    '#282e36', // Saturday
-    '#282e36', // Sunday
-  ]);
+  const [boxColor, setBoxColor] = useState('#282e36');
   
-  const dayPress = (index) => {
-    const newColors = [...boxColors];
-    newColors[index] = newColors[index] === '#70d24e' ? '#282e36' : '#70d24e';
-    setBoxColors(newColors);
+  const dayPress = () => {
+    if (boxColor != '#70d24e') {
+      setBoxColor('#70d24e');
+    } else {
+      setBoxColor('#282e36');
+    }
+      
   };
 
   return (
@@ -135,32 +203,32 @@ const AlarmSettings = ({modalVisible, setModalVisible}) => {
                 </TouchableOpacity>
                 {DaysAreVisible && (
                   <View className="flex-row mx-3 items-center justify-between">
-                    <TouchableOpacity key={0} className="items-center" onPress={() => dayPress(0)}>
-                      <View style={{backgroundColor: boxColors[0]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                      <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Mo</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={1} className="items-center" onPress={() => dayPress(1)}>
-                      <View style={{backgroundColor: boxColors[1]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Tu</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={2} className="items-center" onPress={() => dayPress(2)}>
-                      <View style={{backgroundColor: boxColors[2]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">We</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={3} className="items-center" onPress={() => dayPress(3)}>
-                      <View style={{backgroundColor: boxColors[3]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Th</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={4} className="items-center" onPress={() => dayPress(4)}>
-                      <View style={{backgroundColor: boxColors[4]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Fr</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={5} className="items-center" onPress={() => dayPress(5)}>
-                      <View style={{backgroundColor: boxColors[5]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Sa</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity key={6} className="items-center" onPress={() => dayPress(6)}>
-                      <View style={{backgroundColor: boxColors[6]}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
+                    <TouchableOpacity className="items-center" onPress={dayPress}>
+                    <View style={{backgroundColor: boxColor}} className="w-8 h-8 rounded-lg border-solid border-4 border-[#3d454e] mx-2"/>
                       <Text className="text-white my-2">Su</Text>
                     </TouchableOpacity>
                   </View>
@@ -225,3 +293,7 @@ const styles = StyleSheet.create({
 });
 
 export default AlarmSettings;
+
+
+
+*/
