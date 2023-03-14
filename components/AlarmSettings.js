@@ -5,6 +5,7 @@ import {Alert, Modal, Text, View, TouchableOpacity, StyleSheet} from 'react-nati
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TimePicker from '../components/TimePicker';
 import { Dropdown } from 'react-native-element-dropdown';
+
 // import DropDownPicker from 'react-native-dropdown-picker';
 
 
@@ -13,11 +14,17 @@ import { Dropdown } from 'react-native-element-dropdown';
 // https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
 // https://stackoverflow.com/questions/4147046/is-it-possible-to-remove-am-pm-button-from-timepicker
 // https://github.com/hoaphantn7604/react-native-element-dropdown
+// timePicker for android:
+// https://stackoverflow.com/questions/58925515/using-react-native-community-datetimepicker-how-can-i-display-a-datetime-picker
 
 // TODO:
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 // add functionality of setting time of alarms and so on.
 // remove AM/PM column
+
+// NOTICE:
+// Modal has been closed pop up on android when using the return key on the bottom.
+
 
 const data = [
   { label: 'Item 1', value: '1' },
@@ -34,12 +41,13 @@ const AlarmSettings = ({modalVisible, setModalVisible}) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const [DaysAreVisible, setDaysVisible] = useState(false);
+  const [DaysAreVisible, setDaysVisible] = useState(false);  
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
+    //console.log(currentDate);
   };
 
   const showMode = (currentMode) => {
@@ -93,14 +101,15 @@ const AlarmSettings = ({modalVisible, setModalVisible}) => {
           <TouchableOpacity className="h-56" onPress={() => setModalVisible(!modalVisible)} />
           <View>
             <View className="bg-[#1d2127] rounded-3xl h-screen">
-              <Text className="text-white my-3 font-bold text-lg text-center">Alarm Settings</Text>
+              <Text className="text-white my-3 font-bold text-base text-center">Alarm Settings</Text>
               <View className="h-1/4 items-center justify-center">
-                <DateTimePicker
+              <DateTimePicker
                   textColor="white"
                   testID="dateTimePicker"
                   value={date}
                   mode="time"
                   is24Hour={true}
+                  locale="en-DE"
                   display="spinner"
                   onChange={onChange}
                 />

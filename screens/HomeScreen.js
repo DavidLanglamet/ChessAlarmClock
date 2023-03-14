@@ -49,6 +49,7 @@ const HomeScreen = () => {
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {setModalVisible(true); handleAddAlarm();}}>
           <Text className="text-white text-5xl font-light">+</Text>
         </TouchableOpacity>
+
         </View>
         <View className="flex-row items-center justify-center space-x-44 my-2">
           <TouchableOpacity>
