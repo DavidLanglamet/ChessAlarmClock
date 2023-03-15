@@ -13,9 +13,13 @@ const HomeScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleAddAlarm = () => {
-    const newAlarm = { id: Date.now() };
+    const newAlarm = { id: Date.now(), settings: {} };
     setAlarms([...alarms, newAlarm]);
     setModalVisible(true);
+  };
+
+  const saveSettings = (id, settings) => {
+    setAlarms(alarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
   };
 
   const deleteAlarm = (id) => {
@@ -27,7 +31,7 @@ const HomeScreen = () => {
       navigation.setOptions({
           headerShown: false,
       });
-  }, []);
+  }, []); 
 
 
 
@@ -44,7 +48,7 @@ const HomeScreen = () => {
           }
         </ScrollView>
         <View className="items-center my-8">
-        <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={alarms.length > 0 ? alarms[alarms.length - 1].id : null} />
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {setModalVisible(true); handleAddAlarm();}}>
           <Text className="text-white text-5xl font-light">+</Text>

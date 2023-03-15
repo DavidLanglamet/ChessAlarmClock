@@ -1,3 +1,85 @@
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image} from 'react-native'
+import React, { useLayoutEffect, useState} from 'react'
+import { useNavigation } from '@react-navigation/native'
+import Alarm from "../components/Alarm"
+import AlarmSettings from '../components/AlarmSettings'
+
+// TODO: Check if pressing + twice quickly causes problems
+
+const HomeScreen = () => {
+  const navigation = useNavigation();
+  const [alarms, setAlarms] = useState([]);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleAddAlarm = () => {
+    const newAlarm = { id: Date.now(), settings: {} };
+    setAlarms([...alarms, newAlarm]);
+    setModalVisible(true);
+  };
+
+  const saveSettings = (id, settings) => {
+    setAlarms(alarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
+  };
+
+  const deleteAlarm = (id) => {
+    const filteredAlarms = alarms.filter((alarm) => alarm.id !== id);
+    setAlarms(filteredAlarms);
+  };
+
+  useLayoutEffect(() => {
+      navigation.setOptions({
+          headerShown: false,
+      });
+  }, []); 
+
+
+
+  return (
+    <SafeAreaView className="bg-[#303840] flex-1">
+      <View>
+        <Text className="my-16 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
+        <ScrollView className="h-1/2 mx-5">
+          {/* This is where the Alarms will go! */}
+          {
+            alarms.map((alarm) => (
+              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            ))
+          }
+        </ScrollView>
+        <View className="items-center my-8">
+        <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={alarms.length > 0 ? alarms[alarms.length - 1].id : null} />
+        <TouchableOpacity
+          className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {setModalVisible(true); handleAddAlarm();}}>
+          <Text className="text-white text-5xl font-light">+</Text>
+        </TouchableOpacity>
+
+        </View>
+        <View className="flex-row items-center justify-center space-x-44 my-2">
+          <TouchableOpacity>
+            <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
+          </TouchableOpacity>
+          <TouchableOpacity className="bg-white rounded-full items-center h-16 w-16 justify-center">
+
+          </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export default HomeScreen;
+
+
+
+
+
+
+
+
+
+
+
 // Version of using actual timePicker. File: AlarmSettings.js
 
 import React, {useState} from 'react';
@@ -184,7 +266,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
                 <TouchableOpacity>
                   <Text className="text-red-500 font-bold text-xl">Delete</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {saveAlarmSettings(); setModalVisible(!modalVisible);}}>
+                <TouchableOpacity onPress={saveAlarmSettings}>
                   <Text className="text-green-400 font-bold text-xl">Save</Text>
                 </TouchableOpacity>
               </View>
@@ -239,3 +321,67 @@ const styles = StyleSheet.create({
 });
 
 export default AlarmSettings;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import { View, Text, Switch, Animated, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+
+const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+    const RightActions = (progress, dragX) => {
+      const scale = dragX.interpolate({
+        inputRange: [-100, 0],
+        outputRange: [1, 0],
+      })
+
+      return (
+        <View className="bg-red-500 justify-center my-1 rounded-xl flex-1">
+          <Animated.Text className="text-white font-bold text-right mx-5">Delete</Animated.Text>
+        </View>
+      )
+    };
+    
+  return (
+    <Swipeable
+      renderRightActions={RightActions}
+      onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
+    >
+      <View className="flex-row justify-between items-center px-6 py-3 bg-white rounded-lg">
+        <View className="flex-col">
+          <Text className="text-xl font-semibold">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}</Text>
+          <Text className="text-gray-400">
+            {alarm.settings.repeatDays ? alarm.settings.repeatDays.join(', ') : ''}
+          </Text>
+        </View>
+        <Switch
+          trackColor={{ false: '#767577', true: '#81b0ff' }}
+          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
+    </Swipeable>
+  );
+};
+// switch color  8ada6f     3e9950    47FF2E
+export default Alarm

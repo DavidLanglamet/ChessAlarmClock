@@ -1,10 +1,13 @@
-import { View, Text, Switch, Animated, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, Switch, Animated, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible}) => {
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+// FIX:
+// The days selection is only adjusting the last added alarms days and not the one you select. Turning it off also doesn't work.
+
+const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible }) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
     const RightActions = (progress, dragX) => {
       const scale = dragX.interpolate({
@@ -20,6 +23,34 @@ const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible}) => {
     };
     
   return (
+    <Swipeable
+      renderRightActions={RightActions}
+      onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
+    >
+      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+        <View className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-b-4 border-[#48505a]">
+          <View className="flex-1">
+            <Text className="text-white text-5xl tracking-widest">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ''}</Text>
+            <Text className="text-white text-base">
+              {alarm.settings.repeatDays ? alarm.settings.repeatDays.join(', ') : ''}
+            </Text>
+          </View>
+          <Switch
+              trackColor={{ false: "#dcdcdc", true: "#8ada6f"}}
+              thumbColor={isEnabled ? "#FFF" : "#FFF"}
+              ios_backgroundColor="#dcdcdc"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+          />
+        </View>
+      </TouchableOpacity>
+    </Swipeable>
+  );
+};
+
+
+/*
+return (
     <Swipeable
       renderRightActions={RightActions}
       onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
@@ -42,5 +73,9 @@ const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible}) => {
     </Swipeable>
   );
 };
+
+*/
+
+
 // switch color  8ada6f     3e9950    47FF2E
 export default Alarm
