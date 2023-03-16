@@ -4,7 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 
-// TODO: Check if pressing + twice quickly causes problems
+// TODO:
+// Check if pressing + twice quickly causes problems
+// Make days text appear instead of indices and if nothings selected display "one time"
+// Make the default settings page of a newly created alarm be set to repeat off and time should be at 10 AM
+// When opening an alarm, display its settings and not the previous ones
+// Sort alarms in time of ringing
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -12,8 +17,11 @@ const HomeScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
+  const [currentAlarmId, setCurrentAlarmId] = useState(null);
+
   const handleAddAlarm = () => {
     const newAlarm = { id: Date.now(), settings: {} };
+    setCurrentAlarmId(newAlarm.id);
     setAlarms([...alarms, newAlarm]);
     setModalVisible(true);
   };
@@ -43,14 +51,14 @@ const HomeScreen = () => {
           {/* This is where the Alarms will go! */}
           {
             alarms.map((alarm) => (
-              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} setCurrentAlarmId={setCurrentAlarmId} />
             ))
           }
         </ScrollView>
         <View className="items-center my-8">
-        <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={alarms.length > 0 ? alarms[alarms.length - 1].id : null} />
+          <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={currentAlarmId} />
         <TouchableOpacity
-          className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {setModalVisible(true); handleAddAlarm();}}>
+          className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
           <Text className="text-white text-5xl font-light">+</Text>
         </TouchableOpacity>
 

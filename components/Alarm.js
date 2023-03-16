@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 // FIX:
 // The days selection is only adjusting the last added alarms days and not the one you select. Turning it off also doesn't work.
 
-const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible }) => {
+const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible, setCurrentAlarmId}) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -27,7 +27,7 @@ const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible }) => {
       renderRightActions={RightActions}
       onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
     >
-      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+      <TouchableOpacity onPress={() => { setModalVisible(!modalVisible); setCurrentAlarmId(alarm.id); }}>
         <View className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-b-4 border-[#48505a]">
           <View className="flex-1">
             <Text className="text-white text-5xl tracking-widest">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ''}</Text>
