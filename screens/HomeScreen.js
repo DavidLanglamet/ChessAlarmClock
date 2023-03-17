@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image} from 'react-native'
-import React, { useLayoutEffect, useState} from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
@@ -18,6 +18,8 @@ const HomeScreen = () => {
 
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
 
+  const [currentAlarmSettings, setCurrentAlarmSettings] = useState(null);
+
   const handleAddAlarm = () => {
     const currentTime = new Date();
     currentTime.setSeconds(0, 0);
@@ -34,7 +36,11 @@ const HomeScreen = () => {
     setModalVisible(true);
   };
   
-  
+  const handleAlarmPress = (id) => {
+    setCurrentAlarmId(id);
+    setCurrentAlarmSettings(alarms.find((alarm) => alarm.id === id).settings);
+    setModalVisible(true);
+  };
   
 
   const saveSettings = (id, settings) => {
@@ -62,10 +68,19 @@ const HomeScreen = () => {
         <ScrollView className="h-1/2 mx-5">
           {/* This is where the Alarms will go! */}
           {
-            sortedAlarms.map((alarm) => (
-              <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} setCurrentAlarmId={setCurrentAlarmId} />
-            ))
-          }
+      sortedAlarms.map((alarm) => (
+        <Alarm
+          key={alarm.id}
+          handleAlarmPress={handleAlarmPress}
+          deleteAlarm={deleteAlarm}
+          alarm={alarm}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+          setCurrentAlarmId={setCurrentAlarmId}
+          setCurrentAlarmSettings={setCurrentAlarmSettings}
+        />
+      ))
+    }
         </ScrollView>
         <View className="items-center my-8">
         <AlarmSettings 

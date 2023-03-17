@@ -1,6 +1,6 @@
 // Version of using actual timePicker. File: AlarmSettings.js
 
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Alert, Modal, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import TimePicker from '../components/TimePicker';
@@ -33,8 +33,8 @@ const data = [
   { label: 'Item 7', value: '7' },
 ];
 
-const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
+const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings}) => {
+  const [date, setDate] = useState(alarmSettings?.time || new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [DaysAreVisible, setDaysVisible] = useState(false);  
@@ -92,6 +92,20 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
     newColors[index] = newColors[index] === '#70d24e' ? '#282e36' : '#70d24e';
     setBoxColors(newColors);
   };
+
+  useEffect(() => {
+    setDate(alarmSettings?.time || new Date(1598051730000));
+    setBoxColors([
+      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Monday
+      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(1) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(2) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(3) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(4) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(5) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(6) ? '#70d24e' : '#282e36',
+    ]);
+  }, [alarmSettings]);
 
   return (
     <View>
