@@ -9,7 +9,6 @@ import AlarmSettings from '../components/AlarmSettings'
 // Make days text appear instead of indices and if nothings selected display "one time"
 // Make the default settings page of a newly created alarm be set to repeat off and time should be at 10 AM
 // When opening an alarm, display its settings and not the previous ones
-// Sort alarms in time of ringing
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -20,11 +19,12 @@ const HomeScreen = () => {
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
 
   const handleAddAlarm = () => {
-    const newAlarm = { id: Date.now(), settings: {} };
+    const newAlarm = { id: Date.now(), settings: { alarmSound: null } };
     setCurrentAlarmId(newAlarm.id);
     setAlarms([...alarms, newAlarm]);
     setModalVisible(true);
   };
+  
 
   const saveSettings = (id, settings) => {
     setAlarms(alarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
@@ -41,7 +41,8 @@ const HomeScreen = () => {
       });
   }, []); 
 
-
+  // Sort alarms by time
+  const sortedAlarms = alarms.sort((a, b) => new Date(a.settings.time) - new Date(b.settings.time));
 
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
@@ -50,18 +51,17 @@ const HomeScreen = () => {
         <ScrollView className="h-1/2 mx-5">
           {/* This is where the Alarms will go! */}
           {
-            alarms.map((alarm) => (
+            sortedAlarms.map((alarm) => (
               <Alarm key={alarm.id} deleteAlarm={deleteAlarm} alarm={alarm} modalVisible={modalVisible} setModalVisible={setModalVisible} setCurrentAlarmId={setCurrentAlarmId} />
             ))
           }
         </ScrollView>
         <View className="items-center my-8">
-          <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={currentAlarmId} />
+          <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={currentAlarmId} alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}/>
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
           <Text className="text-white text-5xl font-light">+</Text>
         </TouchableOpacity>
-
         </View>
         <View className="flex-row items-center justify-center space-x-44 my-2">
           <TouchableOpacity>

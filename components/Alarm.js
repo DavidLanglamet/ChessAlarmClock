@@ -48,34 +48,5 @@ const Alarm = ({ deleteAlarm, alarm, modalVisible, setModalVisible, setCurrentAl
   );
 };
 
-
-/*
-return (
-    <Swipeable
-      renderRightActions={RightActions}
-      onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
-    >
-      <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-        <View className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-b-4 border-[#48505a]">
-            <View className="flex-1">
-                <Text className="text-white text-5xl tracking-widest">22:30</Text>
-                <Text className="text-white text-base">everyday</Text>
-            </View>
-            <Switch
-                trackColor={{ false: "#dcdcdc", true: "#8ada6f"}}
-                thumbColor={isEnabled ? "#FFF" : "#FFF"}
-                ios_backgroundColor="#dcdcdc"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-            />
-        </View>
-      </TouchableOpacity>
-    </Swipeable>
-  );
-};
-
-*/
-
-
 // switch color  8ada6f     3e9950    47FF2E
 export default Alarm
