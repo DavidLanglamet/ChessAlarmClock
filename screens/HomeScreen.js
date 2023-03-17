@@ -19,11 +19,22 @@ const HomeScreen = () => {
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
 
   const handleAddAlarm = () => {
-    const newAlarm = { id: Date.now(), settings: { alarmSound: null } };
+    const currentTime = new Date();
+    currentTime.setSeconds(0, 0);
+    const newAlarm = {
+      id: Date.now(),
+      settings: {
+        alarmSound: null,
+        time: currentTime,
+        repeatDays: [], // repeatDays is off
+      },
+    };
     setCurrentAlarmId(newAlarm.id);
     setAlarms([...alarms, newAlarm]);
     setModalVisible(true);
   };
+  
+  
   
 
   const saveSettings = (id, settings) => {
@@ -57,7 +68,14 @@ const HomeScreen = () => {
           }
         </ScrollView>
         <View className="items-center my-8">
-          <AlarmSettings modalVisible={modalVisible} setModalVisible={setModalVisible} saveSettings={saveSettings} currentAlarmId={currentAlarmId} alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}/>
+        <AlarmSettings 
+  modalVisible={modalVisible} 
+  setModalVisible={setModalVisible} 
+  saveSettings={saveSettings} 
+  currentAlarmId={currentAlarmId} 
+  alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}
+  alarmSettings={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings}
+/>
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
           <Text className="text-white text-5xl font-light">+</Text>
@@ -68,7 +86,6 @@ const HomeScreen = () => {
             <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
           </TouchableOpacity>
           <TouchableOpacity className="bg-white rounded-full items-center h-16 w-16 justify-center">
-
           </TouchableOpacity>
         </View>
       </View>
