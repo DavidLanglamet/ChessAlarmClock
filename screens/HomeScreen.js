@@ -88,6 +88,7 @@ const HomeScreen = () => {
           currentAlarmId={currentAlarmId} 
           alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}
           alarmSettings={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings}
+          deleteAlarm={deleteAlarm}
         />
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>

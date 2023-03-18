@@ -32,7 +32,7 @@ const data = [
   { label: 'Item 7', value: '7' },
 ];
 
-const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings}) => {
+const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings, deleteAlarm }) => {
   const [date, setDate] = useState(alarmSettings?.time || new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -196,7 +196,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
               </View>
               <View className="flex-row p-5 justify-center space-x-44">
                 <TouchableOpacity>
-                  <Text className="text-red-500 font-bold text-xl">Delete</Text>
+                  <Text className="text-red-500 font-bold text-xl" onPress={() => {deleteAlarm(currentAlarmId); setModalVisible(!modalVisible)}}>Delete</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {saveAlarmSettings(); setModalVisible(!modalVisible);}}>
                   <Text className="text-green-400 font-bold text-xl">Save</Text>
