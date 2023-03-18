@@ -5,7 +5,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 // FIX:
 // The days selection is only adjusting the last added alarms days and not the one you select. Turning it off also doesn't work.
 
-const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurrentAlarmSettings, handleAlarmPress}) => {
+const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurrentAlarmSettings, handleAlarmPress }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
@@ -22,6 +22,20 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
       )
     };
 
+    // Add this function to get the day abbreviation based on the index
+  const getDayAbbreviation = (index) => {
+    const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+    return days[index];
+  };
+
+  // Add this function to create the repeat days text
+  const repeatDaysText = () => {
+    if (alarm.settings.repeatDays.length === 0) {
+      return "One Time";
+    }
+    return alarm.settings.repeatDays.map((dayIndex) => getDayAbbreviation(dayIndex)).join(", ");
+  };
+
     const handlePress = () => {
       setCurrentAlarmId(alarm.id);
       setCurrentAlarmSettings(alarm.settings);
@@ -37,9 +51,7 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
         <View className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-b-4 border-[#48505a]">
           <View className="flex-1">
             <Text className="text-white text-5xl tracking-widest">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ''}</Text>
-            <Text className="text-white text-base">
-              {alarm.settings.repeatDays ? alarm.settings.repeatDays.join(', ') : ''}
-            </Text>
+            <Text className="text-white text-sm">{repeatDaysText()}</Text>
           </View>
           <Switch
               trackColor={{ false: "#dcdcdc", true: "#8ada6f"}}

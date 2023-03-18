@@ -20,7 +20,6 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 // TODO:
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
-// add functionality of setting time of alarms and so on.
 
 
 const data = [
@@ -52,6 +51,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
         time: date,
         repeatDays: boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1),
         alarmSound: value,
+        daysAreVisible: DaysAreVisible, // Save the DaysAreVisible state
       });
     }
   };
@@ -95,15 +95,15 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 
   useEffect(() => {
     setDate(alarmSettings?.time || new Date(1598051730000));
+    setDaysVisible(alarmSettings?.daysAreVisible || false); // Set the initial state for DaysAreVisible
     setBoxColors([
-      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Monday
-      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(1) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(2) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(3) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(4) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(5) ? '#70d24e' : '#282e36',
-      alarmSettings?.repeatDays.includes(6) ? '#70d24e' : '#282e36',
+      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
+      alarmSettings?.repeatDays.includes(1) ? '#70d24e' : '#282e36', // Tu
+      alarmSettings?.repeatDays.includes(2) ? '#70d24e' : '#282e36', // We
+      alarmSettings?.repeatDays.includes(3) ? '#70d24e' : '#282e36', // Tu
+      alarmSettings?.repeatDays.includes(4) ? '#70d24e' : '#282e36', // Fr
+      alarmSettings?.repeatDays.includes(5) ? '#70d24e' : '#282e36', // Sa
+      alarmSettings?.repeatDays.includes(6) ? '#70d24e' : '#282e36', // Su
     ]);
   }, [alarmSettings]);
 

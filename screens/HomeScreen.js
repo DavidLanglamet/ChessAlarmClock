@@ -6,9 +6,7 @@ import AlarmSettings from '../components/AlarmSettings'
 
 // TODO:
 // Check if pressing + twice quickly causes problems
-// Make days text appear instead of indices and if nothings selected display "one time"
-// Make the default settings page of a newly created alarm be set to repeat off and time should be at 10 AM
-// When opening an alarm, display its settings and not the previous ones
+// make the cancel button work correctly
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -29,6 +27,7 @@ const HomeScreen = () => {
         alarmSound: null,
         time: currentTime,
         repeatDays: [], // repeatDays is off
+        daysAreVisible: false, // Add this line to store the daysAreVisible state
       },
     };
     setCurrentAlarmId(newAlarm.id);
@@ -41,7 +40,6 @@ const HomeScreen = () => {
     setCurrentAlarmSettings(alarms.find((alarm) => alarm.id === id).settings);
     setModalVisible(true);
   };
-  
 
   const saveSettings = (id, settings) => {
     setAlarms(alarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
@@ -84,13 +82,13 @@ const HomeScreen = () => {
         </ScrollView>
         <View className="items-center my-8">
         <AlarmSettings 
-  modalVisible={modalVisible} 
-  setModalVisible={setModalVisible} 
-  saveSettings={saveSettings} 
-  currentAlarmId={currentAlarmId} 
-  alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}
-  alarmSettings={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings}
-/>
+          modalVisible={modalVisible} 
+          setModalVisible={setModalVisible} 
+          saveSettings={saveSettings} 
+          currentAlarmId={currentAlarmId} 
+          alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}
+          alarmSettings={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings}
+        />
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
           <Text className="text-white text-5xl font-light">+</Text>
