@@ -22,7 +22,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 
 
-const data = [
+const alarmSounds = [
   { label: 'Item 1', value: '1' },
   { label: 'Item 2', value: '2' },
   { label: 'Item 3', value: '3' },
@@ -36,7 +36,8 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
   const [date, setDate] = useState(alarmSettings?.time || new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [DaysAreVisible, setDaysVisible] = useState(false);  
+  const [DaysAreVisible, setDaysVisible] = useState(false);
+  const [selectedAlarmSound, setSelectedAlarmSound] = useState(alarmSettings?.alarmSound || null);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
@@ -50,10 +51,10 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
       saveSettings(currentAlarmId, {
         time: date,
         repeatDays: boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1),
-        alarmSound: value,
+        alarmSound: selectedAlarmSound,
         daysAreVisible: DaysAreVisible, // Save the DaysAreVisible state
       });
-    }
+    }    
   };
 
   const showMode = (currentMode) => {
@@ -95,6 +96,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 
   useEffect(() => {
     setDate(alarmSettings?.time || new Date(1598051730000));
+    setSelectedAlarmSound(alarmSettings?.alarmSound || null);
     setDaysVisible(alarmSettings?.daysAreVisible || false); // Set the initial state for DaysAreVisible
     setBoxColors([
       alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
@@ -140,15 +142,16 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
                   selectedTextStyle={styles.selectedTextStyle}
                   inputSearchStyle={styles.inputSearchStyle}
                   iconStyle={styles.iconStyle}
-                  data={data}
+                  data={alarmSounds}
                   maxHeight={200}
                   labelField="label"
                   valueField="value"
-                  placeholder={!isFocus ? 'Alarm Sound' : '...'}
+                  placeholder={!isFocus && value ? alarmSounds.find(sound => sound.value === value).label : (!isFocus ? 'Alarm Sound' : '...')}
                   onFocus={() => setIsFocus(true)}
                   onBlur={() => setIsFocus(false)}
+                  value={selectedAlarmSound}
                   onChange={item => {
-                    setValue(item.value);
+                    setSelectedAlarmSound(item.value);
                     setIsFocus(false);
                   }}
                 />
