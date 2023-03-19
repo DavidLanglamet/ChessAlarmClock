@@ -42,7 +42,7 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress }) => {
             <Text className="text-white text-sm">{repeatDaysText()}</Text>
           </View>
           <Switch
-              trackColor={{true: "#8ada6f", false: "#dcdcdc"}}
+              trackColor={{true: "#4ade80", false: "#dcdcdc"}}
               thumbColor={isEnabled ? "#FFF" : "#FFF"}
               ios_backgroundColor="#dcdcdc"
               onValueChange={toggleSwitch}

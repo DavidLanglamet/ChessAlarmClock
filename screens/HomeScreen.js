@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image} from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
@@ -92,7 +92,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
         </View>
         <View className="flex-row items-center justify-center space-x-44 my-2">
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {navigation.navigate('Settings');}}>
             <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
           </TouchableOpacity>
           <TouchableOpacity className="bg-white rounded-full items-center h-16 w-16 justify-center">

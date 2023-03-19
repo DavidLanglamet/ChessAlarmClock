@@ -7,7 +7,8 @@
 
 
 
-
+// NOTE:
+// in the settings page, the y margin between items is not mathematically correct because of the puzzles dropdown.
 
 
 
@@ -26,3 +27,4 @@
 
 
 // switch colors  8ada6f     3e9950    47FF2E
+// old switch color: #8ada6f
