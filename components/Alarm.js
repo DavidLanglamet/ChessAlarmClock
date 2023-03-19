@@ -2,11 +2,8 @@ import { View, Text, Switch, Animated, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-// FIX:
-// The days selection is only adjusting the last added alarms days and not the one you select. Turning it off also doesn't work.
-
-const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurrentAlarmSettings, handleAlarmPress }) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+const Alarm = ({ alarm, deleteAlarm, handleAlarmPress }) => {
+  const [isEnabled, setIsEnabled] = useState(alarm.isEnabled);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
     const RightActions = (progress, dragX) => {
@@ -14,7 +11,6 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
         inputRange: [-100, 0],
         outputRange: [1, 0],
       })
-
       return (
         <View className="bg-red-500 justify-center my-1 rounded-xl flex-1">
           <Animated.Text className="text-white font-bold text-right mx-5">Delete</Animated.Text>
@@ -22,25 +18,17 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
       )
     };
 
-    // Add this function to get the day abbreviation based on the index
   const getDayAbbreviation = (index) => {
     const days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
     return days[index];
   };
 
-  // Add this function to create the repeat days text
   const repeatDaysText = () => {
     if (alarm.settings.repeatDays.length === 0) {
       return "One Time";
     }
     return alarm.settings.repeatDays.map((dayIndex) => getDayAbbreviation(dayIndex)).join(", ");
   };
-
-    const handlePress = () => {
-      setCurrentAlarmId(alarm.id);
-      setCurrentAlarmSettings(alarm.settings);
-      setModalVisible(true);
-    };
     
   return (
     <Swipeable
@@ -54,7 +42,7 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
             <Text className="text-white text-sm">{repeatDaysText()}</Text>
           </View>
           <Switch
-              trackColor={{ false: "#dcdcdc", true: "#8ada6f"}}
+              trackColor={{true: "#8ada6f", false: "#dcdcdc"}}
               thumbColor={isEnabled ? "#FFF" : "#FFF"}
               ios_backgroundColor="#dcdcdc"
               onValueChange={toggleSwitch}
@@ -66,5 +54,4 @@ const Alarm = ({ alarm, deleteAlarm, setCurrentAlarmId, setModalVisible, setCurr
   );
 };
 
-// switch color  8ada6f     3e9950    47FF2E
 export default Alarm

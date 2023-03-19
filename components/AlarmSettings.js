@@ -1,26 +1,7 @@
-// Version of using actual timePicker. File: AlarmSettings.js
-
 import React, { useState, useEffect } from 'react';
-import {Alert, Modal, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import { Modal, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import TimePicker from '../components/TimePicker';
 import { Dropdown } from 'react-native-element-dropdown';
-
-
-// import DropDownPicker from 'react-native-dropdown-picker';
-
-
-// next link is for dropdown picker issues
-// https://stackoverflow.com/questions/67573201/react-native-dropdown-picker-how-to-fix-the-dropdown-picker-overlay-on-other-co
-// https://blog.logrocket.com/react-native-gesture-handler-swipe-long-press-and-more/
-// https://stackoverflow.com/questions/4147046/is-it-possible-to-remove-am-pm-button-from-timepicker
-// https://github.com/hoaphantn7604/react-native-element-dropdown
-// timePicker for android:
-// https://stackoverflow.com/questions/58925515/using-react-native-community-datetimepicker-how-can-i-display-a-datetime-picker
-
-// TODO:
-// add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
-
 
 const alarmSounds = [
   { label: 'Item 1', value: '1' },
@@ -38,12 +19,22 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
   const [show, setShow] = useState(false);
   const [DaysAreVisible, setDaysVisible] = useState(false);
   const [selectedAlarmSound, setSelectedAlarmSound] = useState(alarmSettings?.alarmSound || null);
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+  const [boxColors, setBoxColors] = useState([
+    '#282e36', // Mo
+    '#282e36', // Tu
+    '#282e36', // We
+    '#282e36', // Tu
+    '#282e36', // Fr
+    '#282e36', // Sa
+    '#282e36', // Su
+  ]);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setShow(false);
     setDate(currentDate);
-    // console.log(currentDate);
   };
 
   const saveAlarmSettings = () => {
@@ -52,9 +43,29 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
         time: date,
         repeatDays: boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1),
         alarmSound: selectedAlarmSound,
-        daysAreVisible: DaysAreVisible, // Save the DaysAreVisible state
+        daysAreVisible: DaysAreVisible,
       });
     }    
+  };
+
+  const resetState = () => {
+    setDate(alarmSettings?.time || new Date(1598051730000));
+    setSelectedAlarmSound(alarmSettings?.alarmSound || null);
+    setDaysVisible(alarmSettings?.daysAreVisible || false);
+    setBoxColors([
+      alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
+      alarmSettings?.repeatDays.includes(1) ? '#70d24e' : '#282e36', // Tu
+      alarmSettings?.repeatDays.includes(2) ? '#70d24e' : '#282e36', // We
+      alarmSettings?.repeatDays.includes(3) ? '#70d24e' : '#282e36', // Tu
+      alarmSettings?.repeatDays.includes(4) ? '#70d24e' : '#282e36', // Fr
+      alarmSettings?.repeatDays.includes(5) ? '#70d24e' : '#282e36', // Sa
+      alarmSettings?.repeatDays.includes(6) ? '#70d24e' : '#282e36', // Su
+    ]);
+  };
+
+  const closeModal = () => {
+    setModalVisible(!modalVisible);
+    resetState();
   };
 
   const showMode = (currentMode) => {
@@ -64,29 +75,6 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
     }
     setMode(currentMode);
   };
-
-  const showDatepicker = () => {
-    setShow(true);
-    showMode('date');
-  };
-
-  const showTimepicker = () => {
-    setShow(true);
-    showMode('time');
-  };
-
-  const [value, setValue] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-
-  const [boxColors, setBoxColors] = useState([
-    '#282e36', // Monday
-    '#282e36', // Tuesday
-    '#282e36', // Wednesday
-    '#282e36', // Thursday
-    '#282e36', // Friday
-    '#282e36', // Saturday
-    '#282e36', // Sunday
-  ]);
   
   const dayPress = (index) => {
     const newColors = [...boxColors];
@@ -97,7 +85,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
   useEffect(() => {
     setDate(alarmSettings?.time || new Date(1598051730000));
     setSelectedAlarmSound(alarmSettings?.alarmSound || null);
-    setDaysVisible(alarmSettings?.daysAreVisible || false); // Set the initial state for DaysAreVisible
+    setDaysVisible(alarmSettings?.daysAreVisible || false);
     setBoxColors([
       alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
       alarmSettings?.repeatDays.includes(1) ? '#70d24e' : '#282e36', // Tu
@@ -119,7 +107,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
           setModalVisible(!modalVisible);
         }}>
         <View>
-          <TouchableOpacity className="h-56" onPress={() => setModalVisible(!modalVisible)} />
+          <TouchableOpacity className="h-56" onPress={closeModal} />
           <View>
             <View className="bg-[#1d2127] rounded-3xl h-screen">
               <Text className="text-white my-3 font-bold text-base text-center">Alarm Settings</Text>
@@ -214,19 +202,12 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-    padding: 16,
-  },
   dropdown: {
     height: 50,
     borderColor: 'gray',
     borderWidth: 0.5,
     borderRadius: 8,
     paddingHorizontal: 8,
-  },
-  icon: {
-    marginRight: 5,
   },
   label: {
     position: 'absolute',

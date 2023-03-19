@@ -4,18 +4,11 @@ import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 
-// TODO:
-// Check if pressing + twice quickly causes problems
-// make the cancel button work correctly
-
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [alarms, setAlarms] = useState([]);
-
   const [modalVisible, setModalVisible] = useState(false);
-
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
-
   const [currentAlarmSettings, setCurrentAlarmSettings] = useState(null);
 
   const handleAddAlarm = () => {
@@ -23,11 +16,12 @@ const HomeScreen = () => {
     currentTime.setSeconds(0, 0);
     const newAlarm = {
       id: Date.now(),
+      isEnabled: true,
       settings: {
         alarmSound: null,
         time: currentTime,
-        repeatDays: [], // repeatDays is off
-        daysAreVisible: false, // Add this line to store the daysAreVisible state
+        repeatDays: [], 
+        daysAreVisible: false, 
       },
     };
     setCurrentAlarmId(newAlarm.id);
@@ -64,7 +58,7 @@ const HomeScreen = () => {
       <View>
         <Text className="my-16 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
         <ScrollView className="h-1/2 mx-5">
-          {/* This is where the Alarms will go! */}
+          {/* This is where the Alarms go! */}
           {
       sortedAlarms.map((alarm) => (
         <Alarm
@@ -89,6 +83,8 @@ const HomeScreen = () => {
           alarmSound={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.alarmSound}
           alarmSettings={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings}
           deleteAlarm={deleteAlarm}
+          currentAlarmSettings={currentAlarmSettings}
+          handleAlarmPress={handleAlarmPress}
         />
         <TouchableOpacity
           className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
