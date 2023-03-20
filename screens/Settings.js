@@ -86,7 +86,7 @@ const Settings = ({ navigation }) => {
             </View>
 
             <TouchableOpacity className="absolute bottom-20 right-10 m-2" onPress={() => navigation.goBack()} >
-                <Image source={require('../assets/Back.png')} className="h-12 w-12" />
+                <Image source={require('../assets/back.png')} className="h-12 w-12" />
             </TouchableOpacity>
       </SafeAreaView>
     );
