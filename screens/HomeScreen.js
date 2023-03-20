@@ -55,26 +55,25 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
-      <View>
+      <View className="h-full mt-8">
         <Text className="my-16 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
-        <ScrollView className="h-1/2 mx-5">
+        <ScrollView className="mx-5">
           {/* This is where the Alarms go! */}
           {
-      sortedAlarms.map((alarm) => (
-        <Alarm
-          key={alarm.id}
-          handleAlarmPress={handleAlarmPress}
-          deleteAlarm={deleteAlarm}
-          alarm={alarm}
-          modalVisible={modalVisible}
-          setModalVisible={setModalVisible}
-          setCurrentAlarmId={setCurrentAlarmId}
-          setCurrentAlarmSettings={setCurrentAlarmSettings}
-        />
-      ))
-    }
+            sortedAlarms.map((alarm) => (
+              <Alarm
+                key={alarm.id}
+                handleAlarmPress={handleAlarmPress}
+                deleteAlarm={deleteAlarm}
+                alarm={alarm}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                setCurrentAlarmId={setCurrentAlarmId}
+                setCurrentAlarmSettings={setCurrentAlarmSettings}
+              />
+            ))
+          }
         </ScrollView>
-        <View className="items-center my-8">
         <AlarmSettings 
           modalVisible={modalVisible} 
           setModalVisible={setModalVisible} 
@@ -86,12 +85,13 @@ const HomeScreen = () => {
           currentAlarmSettings={currentAlarmSettings}
           handleAlarmPress={handleAlarmPress}
         />
-        <TouchableOpacity
-          className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
-          <Text className="text-white text-5xl font-light">+</Text>
-        </TouchableOpacity>
+        <View className="items-center my-4 fixed">
+          <TouchableOpacity
+            className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
+            <Text className="text-white text-5xl font-light">+</Text>
+          </TouchableOpacity>
         </View>
-        <View className="flex-row items-center justify-center space-x-44 my-2">
+        <View className="flex-row items-center justify-center space-x-44 my-12">
           <TouchableOpacity onPress={() => {navigation.navigate('Settings');}}>
             <Image source={require('../assets/settingsIcon2.png')} className="h-10 w-10" />
           </TouchableOpacity>
