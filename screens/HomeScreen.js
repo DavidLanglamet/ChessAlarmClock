@@ -93,9 +93,10 @@ const HomeScreen = () => {
         </View>
         <View className="flex-row items-center justify-center space-x-44 my-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Settings');}}>
-            <Image source={require('../assets/settingsIcon.png')} className="h-10 w-10" />
+            <Image source={require('../assets/settingsIcon2.png')} className="h-10 w-10" />
           </TouchableOpacity>
-          <TouchableOpacity className="bg-white rounded-full items-center h-16 w-16 justify-center">
+          <TouchableOpacity className="rounded-full" onPress={() => {navigation.navigate('Profile');}}>
+            <Image source={require('../assets/danielNaroditsky.png')} className="h-20 w-20" />
           </TouchableOpacity>
         </View>
       </View>

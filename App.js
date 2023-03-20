@@ -6,6 +6,7 @@ import 'react-native-gesture-handler';
 import HomeScreen from './screens/HomeScreen';
 import { StatusBar } from 'expo-status-bar';
 import Settings from './screens/Settings';
+import Profile from './screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +18,14 @@ function App() {
         <Stack.Screen
           name="Settings"
           component={Settings}
+          options={{
+            headerShown: false,
+            gestureDirection: 'horizontal-inverted',
+          }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
           options={{
             headerShown: false,
             gestureDirection: 'horizontal-inverted',
