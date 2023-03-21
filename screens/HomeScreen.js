@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
@@ -49,6 +49,10 @@ const HomeScreen = () => {
           headerShown: false,
       });
   }, []); 
+
+  const chessPress = () => {
+    Linking.openURL('https://lichess.org/training/daily');
+  };
 
   // Sort alarms by time
   const sortedAlarms = alarms.sort((a, b) => new Date(a.settings.time) - new Date(b.settings.time));

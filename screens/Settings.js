@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
@@ -20,6 +20,12 @@ const Settings = ({ navigation }) => {
     const [isFocus, setIsFocus] = useState(false);
     const [value, setValue] = useState(null);
     const [selectedAlarmSound, setSelectedAlarmSound] = useState(alarmSounds[0].value);
+    const dropdownRef = useRef(null);
+  
+  const handleDropDownPress = () => {
+    dropdownRef.current && dropdownRef.current.open(); //only works after having pressed the dropDown once.
+    console.log(dropdownRef)
+  };
 
     return ( 
       <SafeAreaView className="bg-[#303840] flex-1">
@@ -30,9 +36,10 @@ const Settings = ({ navigation }) => {
                         <Text className="text-white text-lg">Username</Text>
                         <Text className="text-white text-lg">Tinypixel</Text>
                     </View>
-                    <TouchableOpacity className="flex-row justify-between space-x-px py-2 items-center">
+                    <TouchableOpacity className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
                         <Text className="text-white text-lg">Puzzles</Text>
                         <Dropdown
+                            ref={dropdownRef}
                             style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
