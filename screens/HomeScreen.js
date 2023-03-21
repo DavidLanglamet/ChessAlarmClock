@@ -3,8 +3,31 @@ import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
+import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
+
+  const [sound, setSound] = React.useState();
+
+  async function playSound() {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('../assets/Hello.mp3') );
+    setSound(sound);
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  React.useEffect(() => {
+    return sound
+      ? () => {
+          console.log('Unloading Sound');
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  
+
   const navigation = useNavigation();
   const [alarms, setAlarms] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -93,6 +116,9 @@ const HomeScreen = () => {
           <TouchableOpacity
             className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
             <Text className="text-white text-5xl font-light">+</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => {navigation.navigate('ChessScreen');}} >
+            <Text>Chess Screen</Text>
           </TouchableOpacity>
         </View>
         <View className="flex-row items-center justify-center space-x-44 my-12">
