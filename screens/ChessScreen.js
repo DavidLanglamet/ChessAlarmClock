@@ -10,6 +10,7 @@ const ChessScreen = () => {
       element.style.display = 'none';
     }
 
+    // SHOW THIS? TO SEE SOLUTION AND STUFF.
     var puzzleTools = document.querySelector('.puzzle__tools');
     if (puzzleTools) {
       puzzleTools.style.display = 'none';
@@ -33,7 +34,7 @@ const ChessScreen = () => {
         <Text className="text-white text-base mt-12">Solve the puzzle to stop the alarm</Text>
       </View>
       <WebView 
-        source={{ uri: 'https://lichess.org/training/daily' }}
+        source={{ uri: 'https://lichess.org/training/mix' }}
         injectedJavaScript={injectedJavaScript}
       />
     </SafeAreaView>
