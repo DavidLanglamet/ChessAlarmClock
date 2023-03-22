@@ -3,20 +3,124 @@ import React from 'react'
 import { WebView } from 'react-native-webview';
 
 const ChessScreen = () => {
-    
+  const injectedJavaScript = `
+    // Hide unwanted elements
+    var element = document.querySelector('header#top');
+    if (element) {
+      element.style.display = 'none';
+    }
+
+    var puzzleTools = document.querySelector('.puzzle__tools');
+    if (puzzleTools) {
+      puzzleTools.style.display = 'none';
+    }
+
+    var puzzleSession = document.querySelector('.puzzle__session');
+    if (puzzleSession) {
+      puzzleSession.style.display = 'none';
+    }
+
+    var puzzleSide = document.querySelector('aside.puzzle__side');
+    if (puzzleSide) {
+      puzzleSide.style.display = 'none';
+    }
+  `;
+
   return (
-    <SafeAreaView className="bg-[#303840] flex-1">
-      <WebView
+    <SafeAreaView className="bg-[#161512] flex-1">
+      <View className="h-40 items-center justify-center" >
+        <Text className="text-white text-2xl font-bold mt-10">Time To Get Up</Text>
+        <Text className="text-white text-base mt-12">Solve the puzzle to stop the alarm</Text>
+      </View>
+      <WebView 
         source={{ uri: 'https://lichess.org/training/daily' }}
-        injectedJavaScript={`
-          document.getElementById('header').style.display = 'none';
-        `}
+        injectedJavaScript={injectedJavaScript}
       />
     </SafeAreaView>
-  )
-}
+  );
+};
+
 
 export default ChessScreen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* FIRST ONE THAT WORKS:
+
+import { View, Text, SafeAreaView } from 'react-native'
+import React from 'react'
+import { WebView } from 'react-native-webview';
+
+const ChessScreen = () => {
+  const injectedJavaScript = `
+    // Hide unwanted elements
+    var element = document.querySelector('header#top');
+    if (element) {
+      element.style.display = 'none';
+    }
+
+    var puzzleTools = document.querySelector('.puzzle__tools');
+    if (puzzleTools) {
+      puzzleTools.style.display = 'none';
+    }
+
+    var puzzleSession = document.querySelector('.puzzle__session');
+    if (puzzleSession) {
+      puzzleSession.style.display = 'none';
+    }
+
+    var puzzleSide = document.querySelector('aside.puzzle__side');
+    if (puzzleSide) {
+      puzzleSide.style.display = 'none';
+    }
+  `;
+
+  return (
+    <SafeAreaView className="bg-black flex-1">
+      <WebView 
+        source={{ uri: 'https://lichess.org/training/daily' }}
+        injectedJavaScript={injectedJavaScript}
+      />
+    </SafeAreaView>
+  );
+};
+
+
+export default ChessScreen
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
