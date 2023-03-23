@@ -32,10 +32,10 @@ const Settings = ({ navigation }) => {
             <View className="items-center">
                 <View className="my-10 mx-5 w-10/12">
                     <Text className="text-white text-2xl font-semibold mb-8">Settings</Text>
-                    <View className="flex-row justify-between space-x-px my-4">
+                    <TouchableOpacity className="flex-row justify-between space-x-px my-4" onPress={() => {navigation.navigate('LogInScreen');}}>
                         <Text className="text-white text-lg">Username</Text>
                         <Text className="text-white text-lg">Tinypixel</Text>
-                    </View>
+                    </TouchableOpacity>
                     <TouchableOpacity className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
                         <Text className="text-white text-lg">Puzzles</Text>
                         <Dropdown

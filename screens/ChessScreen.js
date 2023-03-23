@@ -16,10 +16,13 @@ const ChessScreen = () => {
       puzzleTools.style.display = 'none';
     }
 
+    // PUZZLES SOLVED AND FAILED
+    /*
     var puzzleSession = document.querySelector('.puzzle__session');
     if (puzzleSession) {
       puzzleSession.style.display = 'none';
     }
+    */
 
     var puzzleSide = document.querySelector('aside.puzzle__side');
     if (puzzleSide) {
@@ -34,8 +37,9 @@ const ChessScreen = () => {
         <Text className="text-white text-base mt-12">Solve the puzzle to stop the alarm</Text>
       </View>
       <WebView 
-        source={{ uri: 'https://lichess.org/training/mix' }}
+        source={{ uri: 'https://lichess.org/training/mateIn1' }}
         injectedJavaScript={injectedJavaScript}
+        scrollEnabled={false}
       />
     </SafeAreaView>
   );

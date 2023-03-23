@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import Settings from './screens/Settings';
 import Profile from './screens/Profile';
 import ChessScreen from './screens/ChessScreen';
+import LogInScreen from './screens/LogInScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,14 @@ function App() {
         <Stack.Screen
           name="ChessScreen"
           component={ChessScreen}
+          options={{
+            headerShown: false,
+            gestureDirection: 'horizontal-inverted',
+          }}
+        />
+        <Stack.Screen
+          name="LogInScreen"
+          component={LogInScreen}
           options={{
             headerShown: false,
             gestureDirection: 'horizontal-inverted',
