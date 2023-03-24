@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native'
 
 const ChessScreen = () => {
 
+  const [uri, setUri] = useState("https://lichess.org/training/mateIn1");
+
   const navigation = useNavigation();
 
   const [key, setKey] = useState(0);
@@ -88,7 +90,7 @@ const ChessScreen = () => {
       <WebView
         ref={webviewRef}
         key={key}
-        source={{ uri: 'https://lichess.org/training/mateIn1' }}
+        source={{ uri: uri }}
         injectedJavaScript={injectedJavaScript}
         scrollEnabled={false}
         onMessage={onMessage}

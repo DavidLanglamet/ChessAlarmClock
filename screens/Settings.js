@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
-const alarmSounds = [
+const puzzleCount = [
     { label: '1', value: '1' },
     { label: '2', value: '2' },
     { label: '3', value: '3' },
@@ -12,6 +12,13 @@ const alarmSounds = [
     { label: '7', value: '7' },
   ];
 
+  const puzzleType = [
+    { label: 'Mate in 1', value: '1' },
+    { label: 'Mate in 2', value: '2' },
+    { label: 'Mate in 3', value: '3' },
+    { label: 'Mate in 4', value: '4' },
+  ];
+
 const Settings = ({ navigation }) => {
 
     const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true);
@@ -19,7 +26,8 @@ const Settings = ({ navigation }) => {
     const [PieceSound, setPieceSound] = useState(true);
     const [isFocus, setIsFocus] = useState(false);
     const [value, setValue] = useState(null);
-    const [selectedAlarmSound, setSelectedAlarmSound] = useState(alarmSounds[0].value);
+    const [selectedPuzzleCount, selectPuzzleCount] = useState(puzzleCount[0].value);
+    const [selectedType, selectType] = useState(puzzleType[0].value);
     const dropdownRef = useRef(null);
   
   const handleDropDownPress = () => {
@@ -35,29 +43,6 @@ const Settings = ({ navigation }) => {
                     <TouchableOpacity className="flex-row justify-between space-x-px my-4" onPress={() => {navigation.navigate('LogInScreen');}}>
                         <Text className="text-white text-lg">Username</Text>
                         <Text className="text-white text-lg">Tinypixel</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
-                        <Text className="text-white text-lg">Puzzles</Text>
-                        <Dropdown
-                            ref={dropdownRef}
-                            style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            inputSearchStyle={styles.inputSearchStyle}
-                            iconStyle={styles.iconStyle}
-                            data={alarmSounds}
-                            maxHeight={700}
-                            labelField="label"
-                            valueField="value"
-                            placeholder='Alarm Sound'
-                            onFocus={() => setIsFocus(true)}
-                            onBlur={() => setIsFocus(false)}
-                            value={selectedAlarmSound}
-                            onChange={item => {
-                              setSelectedAlarmSound(item.value);
-                              setIsFocus(false);
-                            }}
-                        />          
                     </TouchableOpacity>
                     <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => setAlarmWhilePuzzle(!alarmWhilePuzzle)}>
                         <Text className="text-white text-lg">Alarm while Puzzle</Text>
@@ -80,6 +65,52 @@ const Settings = ({ navigation }) => {
                             <Text className={PieceSound === false ? "text-white text-lg" : "text-[#797979] text-lg"}>off</Text>
                         </View>
                     </TouchableOpacity>
+                    <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
+                      <Text className="text-white text-lg mr-3">Puzzle Count</Text>
+                        <Dropdown
+                            ref={dropdownRef}
+                            style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={puzzleCount}
+                            maxHeight={700}
+                            labelField="label"
+                            valueField="value"
+                            placeholder='Alarm Sound'
+                            onFocus={() => setIsFocus(true)}
+                            onBlur={() => setIsFocus(false)}
+                            value={selectedPuzzleCount}
+                            onChange={item => {
+                              selectPuzzleCount(item.value);
+                              setIsFocus(false);
+                            }}
+                        />          
+                    </View>
+                    <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
+                      <Text className="text-white text-lg mr-5">Puzzle Type</Text>
+                        <Dropdown
+                            ref={dropdownRef}
+                            style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
+                            placeholderStyle={styles.placeholderStyle}
+                            selectedTextStyle={styles.selectedTextStyle}
+                            inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={styles.iconStyle}
+                            data={puzzleType}
+                            maxHeight={700}
+                            labelField="label"
+                            valueField="value"
+                            placeholder='Alarm Sound'
+                            onFocus={() => setIsFocus(true)}
+                            onBlur={() => setIsFocus(false)}
+                            value={selectedType}
+                            onChange={item => {
+                              selectType(item.value);
+                              setIsFocus(false);
+                            }}
+                        />          
+                    </View>
                 </View>
             </View>
 
@@ -102,11 +133,11 @@ const Settings = ({ navigation }) => {
 const styles = StyleSheet.create({
     dropdown: {
       height: 50,
-      width: 70,
       borderColor: 'gray',
       borderWidth: 0.5,
       borderRadius: 8,
       paddingHorizontal: 8,
+      flex: 1,
     },
     label: {
       position: 'absolute',

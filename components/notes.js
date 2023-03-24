@@ -9,7 +9,8 @@
 // Figure out how to clear cache (so you don't see how many puzzles you have solved) / edit the html as needed or whatever.
 
 
-
+// DESING ISSUES:
+// In the settings page the puzzleCount and types dropdown windows are placed through mr-X of the text on the left. Is that the way to go?
 
 
 // NOTE:
