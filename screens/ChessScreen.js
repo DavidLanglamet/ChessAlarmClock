@@ -1,8 +1,35 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
 import { WebView } from 'react-native-webview';
 
 const ChessScreen = () => {
+  const [key, setKey] = useState(0);
+  const webviewRef = useRef(null);
+
+  const onMessage = (event) => {
+    const message = event.nativeEvent.data;
+    console.log(message);
+    
+    const text = message.replace(/<[^>]*>/g, ''); // Extract text content from HTML
+  
+    // Count the number of occurrences of "true" in the message
+    const count = (message.match(/true/gi) || []).length;
+
+    // If there are 2 occurrences of "true", call the turnAlarmOff function
+    if (count === 2) {
+      turnAlarmOff();
+    }
+
+    if (message === 'clearCache') {
+      webviewRef.current.injectJavaScript('window.location.reload();');
+    }
+  };
+
+  const turnAlarmOff = () => {
+    console.log('Turning alarm off...');
+    // Do whatever you need to do to turn the alarm off
+  }
+
   const injectedJavaScript = `
     // Hide unwanted elements
     var element = document.querySelector('header#top');
@@ -11,10 +38,12 @@ const ChessScreen = () => {
     }
 
     // SHOW THIS? TO SEE SOLUTION AND STUFF.
+    /*
     var puzzleTools = document.querySelector('.puzzle__tools');
     if (puzzleTools) {
       puzzleTools.style.display = 'none';
     }
+    */
 
     // PUZZLES SOLVED AND FAILED
     /*
@@ -28,25 +57,48 @@ const ChessScreen = () => {
     if (puzzleSide) {
       puzzleSide.style.display = 'none';
     }
+
+    var puzzleSessionDiv = document.querySelector('.puzzle__session');
+    var puzzleSessionContents = puzzleSessionDiv.innerHTML;
+    window.ReactNativeWebView.postMessage(puzzleSessionContents);
+
+    // Add event listener to puzzleSessionDiv that listens for changes to its content
+    puzzleSessionDiv.addEventListener('DOMSubtreeModified', function() {
+    puzzleSessionContents = puzzleSessionDiv.innerHTML;
+    window.ReactNativeWebView.postMessage(puzzleSessionContents);
+  });
   `;
+
+  const clearCacheAndReset = () => {
+    webviewRef.current.postMessage('clearCache');
+    setKey((prevKey) => prevKey + 1);
+  };
 
   return (
     <SafeAreaView className="bg-[#161512] flex-1">
-      <View className="h-40 items-center justify-center" >
-        <Text className="text-white text-2xl font-bold mt-10">Time To Get Up</Text>
-        <Text className="text-white text-base mt-12">Solve the puzzle to stop the alarm</Text>
+      <View className="h-12 items-center justify-center">
+        <Text className="text-white text-base">
+          Solve the puzzle to stop the alarm
+        </Text>
       </View>
-      <WebView 
+      <WebView
+        ref={webviewRef}
+        key={key}
         source={{ uri: 'https://lichess.org/training/mateIn1' }}
         injectedJavaScript={injectedJavaScript}
         scrollEnabled={false}
+        onMessage={onMessage}
+        incognito={true}
       />
     </SafeAreaView>
   );
 };
 
+export default ChessScreen;
 
-export default ChessScreen
+
+
+
 
 
 
@@ -104,7 +156,6 @@ const ChessScreen = () => {
 
 
 export default ChessScreen
-
 
 */
 
