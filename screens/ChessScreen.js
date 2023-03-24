@@ -1,8 +1,12 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useState, useRef } from 'react';
 import { WebView } from 'react-native-webview';
+import { useNavigation } from '@react-navigation/native'
 
 const ChessScreen = () => {
+
+  const navigation = useNavigation();
+
   const [key, setKey] = useState(0);
   const webviewRef = useRef(null);
 
@@ -16,7 +20,7 @@ const ChessScreen = () => {
     const count = (message.match(/true/gi) || []).length;
 
     // If there are 2 occurrences of "true", call the turnAlarmOff function
-    if (count === 2) {
+    if (count === 1) {
       turnAlarmOff();
     }
 
@@ -27,7 +31,7 @@ const ChessScreen = () => {
 
   const turnAlarmOff = () => {
     console.log('Turning alarm off...');
-    // Do whatever you need to do to turn the alarm off
+    navigation.navigate('MemeScreen');
   }
 
   const injectedJavaScript = `

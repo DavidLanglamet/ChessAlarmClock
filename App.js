@@ -9,6 +9,8 @@ import Settings from './screens/Settings';
 import Profile from './screens/Profile';
 import ChessScreen from './screens/ChessScreen';
 import LogInScreen from './screens/LogInScreen';
+import MemeScreen from './screens/MemeScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +18,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="Settings"
           component={Settings}
@@ -44,6 +46,14 @@ function App() {
         <Stack.Screen
           name="LogInScreen"
           component={LogInScreen}
+          options={{
+            headerShown: false,
+            gestureDirection: 'horizontal-inverted',
+          }}
+        />
+        <Stack.Screen
+          name="MemeScreen"
+          component={MemeScreen}
           options={{
             headerShown: false,
             gestureDirection: 'horizontal-inverted',
