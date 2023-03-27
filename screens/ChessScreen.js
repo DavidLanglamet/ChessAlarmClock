@@ -1,16 +1,33 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChessScreen = () => {
 
-  const [uri, setUri] = useState("https://lichess.org/training/mateIn1");
+ 
 
   const navigation = useNavigation();
 
   const [key, setKey] = useState(0);
   const webviewRef = useRef(null);
+  const [selectedPuzzleCount, setSelectedPuzzleCount] = useState(null);
+  const [selectedType, selectType] = useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('selectedPuzzleCount').then((value) => {
+      if (value !== null) {
+        setSelectedPuzzleCount(value);
+      }
+    });
+
+    AsyncStorage.getItem('selectedType').then((value) => {
+      if (value !== null) {
+        selectType(value);
+      }
+    });
+  }, []);
 
   const onMessage = (event) => {
     const message = event.nativeEvent.data;
@@ -21,8 +38,8 @@ const ChessScreen = () => {
     // Count the number of occurrences of "true" in the message
     const count = (message.match(/true/gi) || []).length;
 
-    // If there are 2 occurrences of "true", call the turnAlarmOff function
-    if (count === 1) {
+    // If there are selectedPuzzleCount occurrences of "true", call the turnAlarmOff function
+    if (count == selectedPuzzleCount) {
       turnAlarmOff();
     }
 
@@ -90,7 +107,7 @@ const ChessScreen = () => {
       <WebView
         ref={webviewRef}
         key={key}
-        source={{ uri: uri }}
+        source={{ uri: selectedType }}
         injectedJavaScript={injectedJavaScript}
         scrollEnabled={false}
         onMessage={onMessage}
