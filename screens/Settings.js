@@ -9,8 +9,6 @@ const puzzleCount = [
   { label: '3', value: '3' },
   { label: '4', value: '4' },
   { label: '5', value: '5' },
-  { label: '6', value: '6' },
-  { label: '7', value: '7' },
 ];
 
 const puzzleType = [
@@ -18,6 +16,7 @@ const puzzleType = [
   { label: 'Mate in 2', value: "https://lichess.org/training/mateIn2" },
   { label: 'Mate in 3', value: "https://lichess.org/training/mateIn3" },
   { label: 'Mate in 4', value: "https://lichess.org/training/mateIn4" },
+  { label: 'Mate in 5+', value: "https://lichess.org/training/mateIn5" },
 ];
 
 const Settings = ({ navigation }) => {
@@ -95,7 +94,7 @@ const Settings = ({ navigation }) => {
         </View>
       </TouchableOpacity>
       <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
-        <Text className="text-white text-lg mr-3">Puzzle Count</Text>
+        <Text className="text-white text-lg mr-12">Puzzle Count</Text>
         <Dropdown
           ref={dropdownRef}
           style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
@@ -115,7 +114,7 @@ const Settings = ({ navigation }) => {
         />
       </View>
       <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
-        <Text className="text-white text-lg mr-5">Puzzle Type</Text>
+        <Text className="text-white text-lg mr-14">Puzzle Type</Text>
         <Dropdown
                             ref={dropdownRef}
                             style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
@@ -141,14 +140,14 @@ const Settings = ({ navigation }) => {
 
   <View className="items-center">
     <TouchableOpacity>
-      <View className="items-center rounded-xl bg-[#59626e] px-6 py-2 w-1/2 border-b-4 border-[#47ff2e]">
+      <View style={{ borderBottomWidth: 6 }} className="items-center rounded-xl bg-[#59626e] px-6 py-2 w-1/2 border-[#47ff2e]">
         <Text className="text-[#47ff2e] text-xl tracking-widest">Tip Jar for</Text>
         <Text className="text-[#47ff2e] text-xl tracking-widest">DinDing-D4</Text>
       </View>
     </TouchableOpacity>
   </View>
 
-  <TouchableOpacity className="absolute bottom-20 right-10 m-2" onPress={() => navigation.goBack()} >
+  <TouchableOpacity className="absolute bottom-16 right-10 m-2" onPress={() => navigation.goBack()} >
     <Image source={require('../assets/back.png')} className="h-12 w-12" />
   </TouchableOpacity>
 </SafeAreaView>

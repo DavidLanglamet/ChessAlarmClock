@@ -39,12 +39,12 @@ const HomeScreen = () => {
     currentTime.setSeconds(0, 0);
     const newAlarm = {
       id: Date.now(),
-      isEnabled: true,
       settings: {
         alarmSound: null,
         time: currentTime,
         repeatDays: [], 
         daysAreVisible: false, 
+        isEnabled: false,
       },
     };
     setCurrentAlarmId(newAlarm.id);
@@ -135,6 +135,55 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* changes to make for alarm triggering chessScreen
+
+const [currentTime, setCurrentTime] = useState(new Date());  
+
+
+useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+
+  useEffect(() => {
+    const matchedAlarms = alarms.filter((alarm) => {
+      const alarmTime = new Date(alarm.settings.time);
+      return currentTime.getHours() === alarmTime.getHours() && currentTime.getMinutes() === alarmTime.getMinutes();
+    });
+
+    if (matchedAlarms.length > 0) {
+      playSound();
+      navigation.navigate('ChessScreen');
+    }
+  }, [currentTime]);
+
+
+  */
+
+
 
 
 

@@ -185,7 +185,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
                   </View>
                 )}
               </View>
-              <View className="flex-row p-5 justify-center space-x-44">
+              <View className="flex-row p-5 justify-center space-x-40">
                 <TouchableOpacity>
                   <Text className="text-red-500 font-bold text-xl" onPress={() => {deleteAlarm(currentAlarmId); setModalVisible(!modalVisible)}}>Delete</Text>
                 </TouchableOpacity>

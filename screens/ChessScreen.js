@@ -90,6 +90,14 @@ const ChessScreen = () => {
     puzzleSessionContents = puzzleSessionDiv.innerHTML;
     window.ReactNativeWebView.postMessage(puzzleSessionContents);
   });
+
+  var body = document.querySelector('body');
+  if (body) {
+    body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
+    body.setAttribute('data-board-theme', 'blue2');
+    body.setAttribute('data-piece-set', 'cburnett');
+}
+
   `;
 
   const clearCacheAndReset = () => {
