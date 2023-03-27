@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const Alarm = ({ alarm, deleteAlarm, handleAlarmPress }) => {
-  const [isEnabled, setIsEnabled] = useState(alarm.settings.isEnabled);
+  const [isEnabled, setIsEnabled] = useState(alarm.isEnabled);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
     const RightActions = (progress, dragX) => {
@@ -36,7 +36,7 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress }) => {
       onSwipeableRightOpen={() => deleteAlarm(alarm.id)}
     >
       <TouchableOpacity onPress={() => { handleAlarmPress(alarm.id);}}>
-      <View style={{ borderBottomWidth: 6 }} className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-[#48505a]">
+      <View style={{ borderBottomWidth: 6 }}className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-[#48505a]">
                   <View className="flex-1">
             <Text className="text-white text-5xl tracking-widest">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ''}</Text>
             <Text className="text-white text-sm">{repeatDaysText()}</Text>

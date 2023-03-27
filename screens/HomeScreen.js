@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
@@ -39,12 +39,12 @@ const HomeScreen = () => {
     currentTime.setSeconds(0, 0);
     const newAlarm = {
       id: Date.now(),
+      isEnabled: true,
       settings: {
         alarmSound: null,
         time: currentTime,
         repeatDays: [], 
         daysAreVisible: false, 
-        isEnabled: false,
       },
     };
     setCurrentAlarmId(newAlarm.id);
@@ -79,6 +79,31 @@ const HomeScreen = () => {
 
   // Sort alarms by time
   const sortedAlarms = alarms.sort((a, b) => new Date(a.settings.time) - new Date(b.settings.time));
+
+  
+  const [currentTime, setCurrentTime] = useState(new Date());  
+
+
+  useEffect(() => {
+      const intervalId = setInterval(() => {
+        setCurrentTime(new Date());
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }, []);
+
+
+  useEffect(() => {
+    const matchedAlarms = alarms.filter((alarm) => {
+      const alarmTime = new Date(alarm.settings.time);
+      return currentTime.getHours() === alarmTime.getHours() && currentTime.getMinutes() === alarmTime.getMinutes();
+    });
+
+    if (matchedAlarms.length > 0 && !modalVisible) {
+      playSound();
+      navigation.navigate('ChessScreen');
+    }
+  }, [currentTime]);
 
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
