@@ -7,6 +7,22 @@ import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
 
+  const toggleSwitch = (id, isEnabled) => {
+    setAlarms(alarms.map((alarm) => {
+      if (alarm.id === id) {
+        return {
+          ...alarm,
+          settings: {
+            ...alarm.settings,
+            isEnabled: isEnabled,
+          },
+        };
+      }
+      return alarm;
+    }));
+  };
+  
+
   const [sound, setSound] = React.useState();
 
   async function playSound() {
@@ -39,12 +55,12 @@ const HomeScreen = () => {
     currentTime.setSeconds(0, 0);
     const newAlarm = {
       id: Date.now(),
-      isEnabled: true,
       settings: {
         alarmSound: null,
         time: currentTime,
-        repeatDays: [], 
+        repeatDays: [],
         daysAreVisible: false, 
+        isEnabled: true,
       },
     };
     setCurrentAlarmId(newAlarm.id);
@@ -94,10 +110,15 @@ const HomeScreen = () => {
 
 
   useEffect(() => {
+    // console.log(alarms)
     const matchedAlarms = alarms.filter((alarm) => {
       const alarmTime = new Date(alarm.settings.time);
-      return currentTime.getHours() === alarmTime.getHours() && currentTime.getMinutes() === alarmTime.getMinutes();
-    });
+      return (
+        alarm.settings.isEnabled &&
+        currentTime.getHours() === alarmTime.getHours() &&
+        currentTime.getMinutes() === alarmTime.getMinutes()
+      );
+   });
 
     if (matchedAlarms.length > 0 && !modalVisible) {
       playSound();
@@ -122,6 +143,8 @@ const HomeScreen = () => {
                 setModalVisible={setModalVisible}
                 setCurrentAlarmId={setCurrentAlarmId}
                 setCurrentAlarmSettings={setCurrentAlarmSettings}
+                toggleSwitch={toggleSwitch}
+                isEnabled={alarm.settings.isEnabled}
               />
             ))
           }
@@ -136,6 +159,7 @@ const HomeScreen = () => {
           deleteAlarm={deleteAlarm}
           currentAlarmSettings={currentAlarmSettings}
           handleAlarmPress={handleAlarmPress}
+          isEnabled={alarms.find((alarm) => alarm.id === currentAlarmId)?.settings.isEnabled}
         />
         <View className="items-center my-4 fixed">
           <TouchableOpacity

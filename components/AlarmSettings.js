@@ -13,7 +13,7 @@ const alarmSounds = [
   { label: 'Item 7', value: '7' },
 ];
 
-const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings, deleteAlarm }) => {
+const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings, deleteAlarm, isEnabled }) => {
   const [date, setDate] = useState(alarmSettings?.time || new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -44,6 +44,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
         repeatDays: boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1),
         alarmSound: selectedAlarmSound,
         daysAreVisible: DaysAreVisible,
+        isEnabled: isEnabled,
       });
     }    
   };
