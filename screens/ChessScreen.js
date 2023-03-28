@@ -7,10 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ChessScreen = () => {
 
- 
-
   const navigation = useNavigation();
-
   const [key, setKey] = useState(0);
   const webviewRef = useRef(null);
   const [selectedPuzzleCount, setSelectedPuzzleCount] = useState('1');
@@ -52,7 +49,7 @@ const ChessScreen = () => {
   const turnAlarmOff = () => {
     console.log('Turning alarm off...');
     navigation.navigate('MemeScreen');
-  }
+  };
 
   const injectedJavaScript = `
     // Hide unwanted elements

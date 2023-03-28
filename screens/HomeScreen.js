@@ -7,6 +7,8 @@ import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
 
+  const [canRun, setCanRun] = useState(true);
+
   const toggleSwitch = (id, isEnabled) => {
     setAlarms(alarms.map((alarm) => {
       if (alarm.id === id) {
@@ -31,6 +33,13 @@ const HomeScreen = () => {
     setSound(sound);
     console.log('Playing Sound');
     await sound.playAsync();
+  }
+
+  const stopSound = () => {
+    if (sound) {
+      console.log('Stopping Sound');
+      sound.stopAsync();
+    }
   }
 
   React.useEffect(() => {
@@ -101,9 +110,9 @@ const HomeScreen = () => {
 
 
   useEffect(() => {
-      const intervalId = setInterval(() => {
-        setCurrentTime(new Date());
-      }, 1000);
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
 
       return () => clearInterval(intervalId);
     }, []);
@@ -120,11 +129,27 @@ const HomeScreen = () => {
       );
    });
 
+   
+
     if (matchedAlarms.length > 0 && !modalVisible) {
-      playSound();
-      navigation.navigate('ChessScreen');
+      if (!canRun) {
+        console.log('Function is on cooldown');
+        return;
+      }
+    
+      goToPuzzle();
+    
+      setCanRun(false);
+      setTimeout(() => {
+        setCanRun(true);
+      }, 62000);
     }
   }, [currentTime]);
+
+  goToPuzzle = () => {
+    playSound();
+    navigation.navigate('ChessScreen');
+  }
 
   return (
     <SafeAreaView className="bg-[#303840] flex-1">
@@ -174,7 +199,7 @@ const HomeScreen = () => {
           <TouchableOpacity onPress={() => {navigation.navigate('Settings');}}>
             <Image source={require('../assets/settingsIcon2.png')} className="h-10 w-10" />
           </TouchableOpacity>
-          <TouchableOpacity className="rounded-full" onPress={() => {navigation.navigate('Profile');}}>
+          <TouchableOpacity className="rounded-full" onPress={() => {navigation.navigate('Profile'); }}>
             <Image source={require('../assets/danielNaroditsky.png')} className="h-20 w-20" />
           </TouchableOpacity>
         </View>
