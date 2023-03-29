@@ -1,4 +1,3 @@
-
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useState, useRef, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
@@ -92,10 +91,8 @@ const ChessScreen = () => {
   var body = document.querySelector('body');
   if (body) {
     body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
-    body.setAttribute('data-board-theme', 'blue2');
-    body.setAttribute('data-piece-set', 'cburnett');
+    // body.setAttribute("data-sound-set", "silent");
 }
-
   `;
 
   const clearCacheAndReset = () => {

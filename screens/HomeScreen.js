@@ -7,7 +7,8 @@ import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
 
-  const [canRun, setCanRun] = useState(true);
+  const [canRunPuzzle, setCanRunPuzzles] = useState(true);
+  const [canRunAddAlarm, setCanRunAddAlarm] = useState(true);
 
   const toggleSwitch = (id, isEnabled) => {
     setAlarms(alarms.map((alarm) => {
@@ -60,6 +61,11 @@ const HomeScreen = () => {
   const [currentAlarmSettings, setCurrentAlarmSettings] = useState(null);
 
   const handleAddAlarm = () => {
+    if (!canRunAddAlarm) {
+      console.log('Function is on cooldown');
+      return;
+    }
+
     const currentTime = new Date();
     currentTime.setSeconds(0, 0);
     const newAlarm = {
@@ -75,6 +81,11 @@ const HomeScreen = () => {
     setCurrentAlarmId(newAlarm.id);
     setAlarms([...alarms, newAlarm]);
     setModalVisible(true);
+
+    setCanRunAddAlarm(false);
+      setTimeout(() => {
+        setCanRunAddAlarm(true);
+      }, 1000);
   };
   
   const handleAlarmPress = (id) => {
@@ -132,16 +143,16 @@ const HomeScreen = () => {
    
 
     if (matchedAlarms.length > 0 && !modalVisible) {
-      if (!canRun) {
+      if (!canRunPuzzle) {
         console.log('Function is on cooldown');
         return;
       }
     
       goToPuzzle();
     
-      setCanRun(false);
+      setCanRunPuzzles(false);
       setTimeout(() => {
-        setCanRun(true);
+        setCanRunPuzzles(true);
       }, 62000);
     }
   }, [currentTime]);

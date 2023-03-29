@@ -38,10 +38,14 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
   };
 
   const saveAlarmSettings = () => {
+    let repeatDays = [];
+    if (DaysAreVisible) {
+      repeatDays = boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1);
+    }
     if (currentAlarmId) {
       saveSettings(currentAlarmId, {
         time: date,
-        repeatDays: boxColors.map((color, index) => color === '#70d24e' ? index : -1).filter(index => index !== -1),
+        repeatDays: repeatDays,
         alarmSound: selectedAlarmSound,
         daysAreVisible: DaysAreVisible,
         isEnabled: isEnabled,

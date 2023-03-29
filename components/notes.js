@@ -1,14 +1,8 @@
 // TODO:
 
-// Check if pressing + twice quickly causes problems
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 // VERY IMPORTANT: Make sure a link to lichess is set by default. If not you get a null and a white screen.
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
-
-// Make it so that you can change settings like board theme and type of puzzle in the settings page. 
-// figure out how to retrieve data off of the website to make things like stop the alarm after 3 puzzles possible.
-// Figure out how to clear cache (so you don't see how many puzzles you have solved) / edit the html as needed or whatever.
-// if a day is selected and repeat is then turned off, that day is still selected.
 
 // DESING ISSUES:
 // In the settings page the puzzleCount and types dropdown windows are placed through mr-X of the text on the left. Is that the way to go?
@@ -41,16 +35,9 @@
 
 
 
-// TASKS: 
-/*
-
-make alarms actually ring
-
-
-*/
-
-
-
+// FAILED ATTEMPTS:
+// stop alarmSound
+// turn pieceSound off (changing the html doesn't turn the sound off)
 
 
 

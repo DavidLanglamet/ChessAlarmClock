@@ -30,6 +30,12 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress, toggleSwitch }) => {
   const repeatDaysText = () => {
     if (alarm.settings.repeatDays.length === 0) {
       return "One Time";
+    } else if (alarm.settings.repeatDays.length === 7) {
+      return "Everyday";
+    } else if (JSON.stringify(alarm.settings.repeatDays) === JSON.stringify([5, 6])) {
+      return "Weekend";
+    } else if (JSON.stringify(alarm.settings.repeatDays) === JSON.stringify([0, 1, 2, 3, 4])) {
+      return "Weekdays";
     }
     return alarm.settings.repeatDays.map((dayIndex) => getDayAbbreviation(dayIndex)).join(", ");
   };
