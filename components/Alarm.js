@@ -1,5 +1,5 @@
 import { View, Text, Switch, Animated, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 const Alarm = ({ alarm, deleteAlarm, handleAlarmPress, toggleSwitch }) => {
@@ -39,6 +39,10 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress, toggleSwitch }) => {
     }
     return alarm.settings.repeatDays.map((dayIndex) => getDayAbbreviation(dayIndex)).join(", ");
   };
+
+  useEffect(() => {
+    setIsEnabled(alarm.settings.isEnabled);
+  }, [alarm.settings.isEnabled]);
     
   return (
     <Swipeable

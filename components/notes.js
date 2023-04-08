@@ -1,18 +1,50 @@
 // TODO:
-
-// add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
-// VERY IMPORTANT: Make sure a link to lichess is set by default. If not you get a null and a white screen.
+// Make Settings in settings page do what they say
+// Link a Paypal to donate button
+// Produce alarms and link them in app
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
 
 // DESING ISSUES:
 // In the settings page the puzzleCount and types dropdown windows are placed through mr-X of the text on the left. Is that the way to go?
-
-// NOTE:
+// Fix design for different screen sizes.
 // in the settings page, the y margin between items is not mathematically correct because of the puzzles dropdown.
 // drop down zahlen zentriert. vielleicht schmaler? Farbe ändern?
 // Profile button gleich positioniert wie go back buttons
 
+// FAILED ATTEMPTS:
+// stop alarmSound
+// turn pieceSound off (changing the html doesn't turn the sound off)
 
+// POSSIBLE FEATURES:
+// add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// switch colors  8ada6f     3e9950    47FF2E
+// old switch color: #8ada6f
 
 // AlarmSettings links:
 
@@ -23,25 +55,6 @@
 // https://github.com/hoaphantn7604/react-native-element-dropdown
 // timePicker for android:
 // https://stackoverflow.com/questions/58925515/using-react-native-community-datetimepicker-how-can-i-display-a-datetime-picker
-
-
-
-
-
-// switch colors  8ada6f     3e9950    47FF2E
-// old switch color: #8ada6f
-
-
-
-
-
-// FAILED ATTEMPTS:
-// stop alarmSound
-// turn pieceSound off (changing the html doesn't turn the sound off)
-
-
-
-
 
 
 

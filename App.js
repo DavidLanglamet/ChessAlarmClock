@@ -10,58 +10,60 @@ import Profile from './screens/Profile';
 import ChessScreen from './screens/ChessScreen';
 import LogInScreen from './screens/LogInScreen';
 import MemeScreen from './screens/MemeScreen';
-
+import { SoundProvider } from "./components/SoundContext";
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={{
-            headerShown: false,
-            gestureDirection: 'horizontal-inverted',
-          }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            headerShown: false,
-            gestureDirection: 'horizontal-inverted',
-          }}
-        />
-        <Stack.Screen
-          name="ChessScreen"
-          component={ChessScreen}
-          options={{
-            headerShown: false,
-            gestureDirection: 'horizontal-inverted',
-          }}
-        />
-        <Stack.Screen
-          name="LogInScreen"
-          component={LogInScreen}
-          options={{
-            headerShown: false,
-            gestureDirection: 'horizontal-inverted',
-          }}
-        />
-        <Stack.Screen
-          name="MemeScreen"
-          component={MemeScreen}
-          options={{
-            headerShown: false,
-            gestureDirection: 'horizontal-inverted',
-          }}
-        />
-      </Stack.Navigator>
-      <StatusBar style="light" />
-    </NavigationContainer>
+    <SoundProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{
+              headerShown: false,
+              gestureDirection: 'horizontal-inverted',
+            }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerShown: false,
+              gestureDirection: 'horizontal-inverted',
+            }}
+          />
+          <Stack.Screen
+            name="ChessScreen"
+            component={ChessScreen}
+            options={{
+              headerShown: false,
+              gestureDirection: 'horizontal-inverted',
+            }}
+          />
+          <Stack.Screen
+            name="LogInScreen"
+            component={LogInScreen}
+            options={{
+              headerShown: false,
+              gestureDirection: 'horizontal-inverted',
+            }}
+          />
+          <Stack.Screen
+            name="MemeScreen"
+            component={MemeScreen}
+            options={{
+              headerShown: false,
+              gestureDirection: 'horizontal-inverted',
+            }}
+          />
+        </Stack.Navigator>
+        <StatusBar style="light" />
+      </NavigationContainer>
+    </SoundProvider>
   );
 }
 

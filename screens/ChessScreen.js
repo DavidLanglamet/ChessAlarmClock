@@ -1,8 +1,9 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SoundContext } from "../components/SoundContext";
 
 const ChessScreen = () => {
 
@@ -45,9 +46,14 @@ const ChessScreen = () => {
     }
   };
 
+  const { stopSound } = useContext(SoundContext);
+
   const turnAlarmOff = () => {
-    console.log('Turning alarm off...');
-    navigation.navigate('MemeScreen');
+    console.log("Turning alarm off...");
+    if (stopSound) {
+      stopSound();
+    }
+    navigation.navigate("MemeScreen");
   };
 
   const injectedJavaScript = `
@@ -101,22 +107,26 @@ const ChessScreen = () => {
   };
 
   return (
-    <SafeAreaView className="bg-[#161512] flex-1">
-      <View className="h-12 items-center justify-center">
-        <Text className="text-white text-base">
-          Solve the puzzle to stop the alarm
-        </Text>
-      </View>
-      <WebView
-        ref={webviewRef}
-        key={key}
-        source={{ uri: selectedType }}
-        injectedJavaScript={injectedJavaScript}
-        scrollEnabled={false}
-        onMessage={onMessage}
-        incognito={true}
-      />
-    </SafeAreaView>
+    <SoundContext.Consumer>
+      {({ stopSound }) => (
+      <SafeAreaView className="bg-[#161512] flex-1">
+        <View className="h-12 items-center justify-center">
+          <Text className="text-white text-base">
+            Solve the puzzle to stop the alarm
+          </Text>
+        </View>
+        <WebView
+          ref={webviewRef}
+          key={key}
+          source={{ uri: selectedType }}
+          injectedJavaScript={injectedJavaScript}
+          scrollEnabled={false}
+          onMessage={onMessage}
+          incognito={true}
+        />
+      </SafeAreaView>
+      )}
+    </SoundContext.Consumer>
   );
 };
 
