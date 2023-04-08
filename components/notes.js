@@ -1,7 +1,7 @@
 // TODO:
 // Make Settings in settings page do what they say
 // Link a Paypal to donate button
-// Produce alarms and link them in app
+// MusicProduce alarms and link them in app
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
 
 // DESING ISSUES:
@@ -10,16 +10,23 @@
 // in the settings page, the y margin between items is not mathematically correct because of the puzzles dropdown.
 // drop down zahlen zentriert. vielleicht schmaler? Farbe ändern?
 // Profile button gleich positioniert wie go back buttons
+// Modal height is set up in a very sketchy way maybe. Before that version it was just className="h-1/4" instead of <TouchableOpacity style={{height: screenHeight/3 - 3*Math.max(0, heightAdjustmentModal)}} onPress={closeModal} />
+
 
 // FAILED ATTEMPTS:
-// stop alarmSound
 // turn pieceSound off (changing the html doesn't turn the sound off)
 
 // POSSIBLE FEATURES:
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 
 
+// DON'T FORGET
+// Hello Tinypixel is clickable to go to chess screen
 
+
+
+// PUSH NAME:
+// Hello Tinypixel takes you to chessScreen
 
 
 

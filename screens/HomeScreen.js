@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking, Touchable } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
@@ -142,7 +142,9 @@ const HomeScreen = () => {
   return (
       <SafeAreaView className="bg-[#303840] flex-1">
         <View className="h-full mt-8">
-          <Text className="my-16 text-2xl text-center text-white font-bold">Hello Tinypixel</Text>
+          <TouchableOpacity onPress={() => {navigation.navigate('ChessScreen');}}>
+            <Text className="my-16 text-2xl text-center text-white font-bold"> Hello Tinypixel</Text>
+          </TouchableOpacity>
           <ScrollView className="mx-5">
             {/* This is where the Alarms go! */}
             {
@@ -178,9 +180,6 @@ const HomeScreen = () => {
             <TouchableOpacity
               className="bg-[#59626e] rounded-full items-center h-14 w-14 justify-center" onPress={() => {handleAddAlarm()}}>
               <Text className="text-white text-5xl font-light">+</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => {navigation.navigate('ChessScreen');}} >
-              <Text>Chess Screen</Text>
             </TouchableOpacity>
           </View>
           <View className="flex-row items-center justify-center space-x-44 my-12">

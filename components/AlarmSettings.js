@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import { Modal, Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Dropdown } from 'react-native-element-dropdown';
+
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const heightAdjustmentModal = 400 - screenWidth;
 
 const alarmSounds = [
   { label: 'Item 1', value: '1' },
@@ -112,7 +116,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
           setModalVisible(!modalVisible);
         }}>
         <View>
-          <TouchableOpacity className="h-56" onPress={closeModal} />
+          <TouchableOpacity style={{height: screenHeight/3 - 3*Math.max(0, heightAdjustmentModal)}} onPress={closeModal} />
           <View>
             <View className="bg-[#1d2127] rounded-3xl h-screen">
               <Text className="text-white my-3 font-bold text-base text-center">Alarm Settings</Text>
