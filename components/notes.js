@@ -1,5 +1,6 @@
 // TODO:
 // Make Settings in settings page do what they say
+// Save all alarms asynchronously
 // Link a Paypal to donate button
 // MusicProduce alarms and link them in app
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
@@ -22,11 +23,9 @@
 
 // DON'T FORGET
 // Hello Tinypixel is clickable to go to chess screen
+// Does the iphone keyboard actually pop up when changing the username?
 
 
-
-// PUSH NAME:
-// Hello Tinypixel takes you to chessScreen
 
 
 
