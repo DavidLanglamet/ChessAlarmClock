@@ -4,12 +4,23 @@ import { useNavigation } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 import { SoundContext } from "../components/SoundContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
 
   const { playSound } = useContext(SoundContext);
   const [canRunPuzzle, setCanRunPuzzles] = useState(true);
   const [canRunAddAlarm, setCanRunAddAlarm] = useState(true);
+
+  const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true); // Default value
+
+  useEffect(() => {
+    AsyncStorage.getItem('alarmWhilePuzzle').then((value) => {
+      if (value !== null) {
+        setAlarmWhilePuzzle(JSON.parse(value)); // Retrieving value from AsyncStorage
+      }
+    });
+  }, []);
 
   const toggleSwitch = (id, isEnabled) => {
     setAlarms(alarms.map((alarm) => {
@@ -134,15 +145,19 @@ const HomeScreen = () => {
     }
   }, [currentTime]);
 
-  goToPuzzle = () => {
-    playSound();
+  goToPuzzle = async () => { 
+    const latestAlarmWhilePuzzle = JSON.parse(await AsyncStorage.getItem('alarmWhilePuzzle'));
+    if (latestAlarmWhilePuzzle) {
+      console.log(latestAlarmWhilePuzzle);
+      playSound();
+    }
     navigation.navigate('ChessScreen');
-  }
+}
 
   return (
       <SafeAreaView className="bg-[#303840] flex-1">
         <View className="h-full mt-8">
-          <TouchableOpacity onPress={() => {navigation.navigate('ChessScreen');}}>
+          <TouchableOpacity onPress={() => {console.log(alarmWhilePuzzle) }}>
             <Text className="my-16 text-2xl text-center text-white font-bold"> Hello Tinypixel</Text>
           </TouchableOpacity>
           <ScrollView className="mx-5">

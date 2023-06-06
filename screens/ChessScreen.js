@@ -92,13 +92,13 @@ const ChessScreen = () => {
     puzzleSessionDiv.addEventListener('DOMSubtreeModified', function() {
     puzzleSessionContents = puzzleSessionDiv.innerHTML;
     window.ReactNativeWebView.postMessage(puzzleSessionContents);
-  });
+    });
 
-  var body = document.querySelector('body');
-  if (body) {
-    body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
-    // body.setAttribute("data-sound-set", "silent");
-}
+    var body = document.querySelector('body');
+    if (body) {
+      body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
+      // body.setAttribute("data-sound-set", "silent");
+  }
   `;
 
   const clearCacheAndReset = () => {

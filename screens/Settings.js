@@ -30,16 +30,33 @@ const Settings = ({ navigation }) => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Retrieve the value of selectedPuzzleCount from AsyncStorage
     AsyncStorage.getItem('selectedPuzzleCount').then((value) => {
       if (value !== null) {
         selectPuzzleCount(value);
       }
     });
-
+  
     AsyncStorage.getItem('selectedType').then((value) => {
       if (value !== null) {
         selectType(value);
+      }
+    });
+  
+    AsyncStorage.getItem('alarmWhilePuzzle').then((value) => {
+      if (value !== null) {
+        setAlarmWhilePuzzle(JSON.parse(value));
+      }
+    });
+
+    AsyncStorage.getItem('VibrationWhilePuzzle').then((value) => {
+      if (value !== null) {
+        setVibrationWhilePuzzle(JSON.parse(value));
+      }
+    });
+
+    AsyncStorage.getItem('PieceSound').then((value) => {
+      if (value !== null) {
+        setPieceSound(JSON.parse(value));
       }
     });
   }, []);
@@ -62,6 +79,12 @@ const Settings = ({ navigation }) => {
     AsyncStorage.setItem('selectedType', item.value);
     setIsFocus(false);
   };
+
+  const toggleAlarmWhilePuzzle = () => {
+    const newAlarmState = !alarmWhilePuzzle;
+    setAlarmWhilePuzzle(newAlarmState); // Set state
+    AsyncStorage.setItem('alarmWhilePuzzle', JSON.stringify(newAlarmState)); // Store new value
+  };
   
     return ( 
       <SafeAreaView className="bg-[#303840] flex-1">
@@ -72,21 +95,21 @@ const Settings = ({ navigation }) => {
         <Text className="text-white text-lg">Username</Text>
         <Text className="text-white text-lg">Tinypixel</Text>
       </TouchableOpacity>
-      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => setAlarmWhilePuzzle(!alarmWhilePuzzle)}>
-        <Text className="text-white text-lg">Alarm while Puzzle</Text>
+      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={toggleAlarmWhilePuzzle}>
+           <Text className="text-white text-lg">Alarm while Puzzle</Text>
         <View className="flex-row space-x-4">
           <Text className={alarmWhilePuzzle === true ? "text-white text-lg" : "text-[#797979] text-lg"}>on</Text>
           <Text className={alarmWhilePuzzle === false ? "text-white text-lg" : "text-[#797979] text-lg"}>off</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => setVibrationWhilePuzzle(!VibrationWhilePuzzle)}>
+      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => { setVibrationWhilePuzzle(!VibrationWhilePuzzle); AsyncStorage.setItem('VibrationWhilePuzzle', JSON.stringify(!VibrationWhilePuzzle)); }}>
         <Text className="text-white text-lg">Vibration while Puzzle</Text>
         <View className="flex-row space-x-4">
           <Text className={VibrationWhilePuzzle === true ? "text-white text-lg" : "text-[#797979] text-lg"}>on</Text>
           <Text className={VibrationWhilePuzzle === false ? "text-white text-lg" : "text-[#797979] text-lg"}>off</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => setPieceSound(!PieceSound)}>
+      <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={() => { setPieceSound(!PieceSound); AsyncStorage.setItem('PieceSound', JSON.stringify(!PieceSound));} }>
         <Text className="text-white text-lg">Piece Sound</Text>
         <View className="flex-row space-x-4">
           <Text className={PieceSound === true ? "text-white text-lg" : "text-[#797979] text-lg"}>on</Text>
