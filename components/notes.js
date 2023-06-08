@@ -1,8 +1,16 @@
 // TODO:
 // Make Settings in settings page do what they say
-// Save all alarms asynchronously
+// alarm should ring and then stop rining depending on alarmWhilePuzzle setting. Does it ring if outside of app / phone turned off?
+// Save all alarms asynchronously/in a way that they stay
 // Link a Paypal to donate button
 // MusicProduce alarms and link them in app
+// make the alarm sound loop
+// make the alarmsound picking work
+// Make the username thing work
+// Make the vibration work
+// Piece sound
+// days streak
+// puzzles solved
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
 
 // DESING ISSUES:
@@ -20,6 +28,8 @@
 // POSSIBLE FEATURES:
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 
+// BUG:
+// weirdness when setting username to nothing.
 
 // DON'T FORGET
 // Hello Tinypixel is clickable to go to chess screen

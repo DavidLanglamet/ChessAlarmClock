@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, TextInput } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,6 +28,9 @@ const Settings = ({ navigation }) => {
   const [selectedPuzzleCount, selectPuzzleCount] = useState(puzzleCount[0].value);
   const [selectedType, selectType] = useState(puzzleType[0].value);
   const dropdownRef = useRef(null);
+  const [username, setUsername] = useState("Your Username");
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+
 
   useEffect(() => {
     AsyncStorage.getItem('selectedPuzzleCount').then((value) => {
@@ -59,6 +62,12 @@ const Settings = ({ navigation }) => {
         setPieceSound(JSON.parse(value));
       }
     });
+
+    AsyncStorage.getItem('username').then((value) => {
+      if (value !== null) {
+        setUsername(value);
+      }
+    });
   }, []);
 
   const handleDropDownPress = () => {
@@ -85,16 +94,37 @@ const Settings = ({ navigation }) => {
     setAlarmWhilePuzzle(newAlarmState); // Set state
     AsyncStorage.setItem('alarmWhilePuzzle', JSON.stringify(newAlarmState)); // Store new value
   };
+
+  const handleUsernameChange = (newUsername) => {
+    setUsername(newUsername); // Set state
+    AsyncStorage.setItem('username', newUsername); // Store new value
+  };
   
     return ( 
       <SafeAreaView className="bg-[#303840] flex-1">
             <View className="items-center">
     <View className="my-10 mx-5 w-10/12">
       <Text className="text-white text-2xl font-semibold mb-8">Settings</Text>
-      <TouchableOpacity className="flex-row justify-between space-x-px my-4" onPress={() => { navigation.navigate('LogInScreen'); }}>
-        <Text className="text-white text-lg">Username</Text>
-        <Text className="text-white text-lg">Tinypixel</Text>
-      </TouchableOpacity>
+      <TouchableOpacity 
+  className="flex-row justify-between space-x-px my-4" 
+  onPress={() => { setIsEditingUsername(true); }}
+>
+  <Text className="text-white text-lg">Username</Text>
+  {
+    isEditingUsername ? 
+    <TextInput
+      autoFocus={true}
+      style={{color: 'white', fontSize: 18}} //Add your own styling here
+      value={username}
+      onChangeText={handleUsernameChange}
+      onSubmitEditing={() => setIsEditingUsername(false)}
+      onBlur={() => setIsEditingUsername(false)}
+    /> 
+    : 
+    <Text className="text-white text-lg">{username}</Text>
+  }
+</TouchableOpacity>
+
       <TouchableOpacity className="flex-row justify-between space-x-px py-4" onPress={toggleAlarmWhilePuzzle}>
            <Text className="text-white text-lg">Alarm while Puzzle</Text>
         <View className="flex-row space-x-4">

@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking, Touchable } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useContext } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 import { SoundContext } from "../components/SoundContext";
@@ -11,8 +11,8 @@ const HomeScreen = () => {
   const { playSound } = useContext(SoundContext);
   const [canRunPuzzle, setCanRunPuzzles] = useState(true);
   const [canRunAddAlarm, setCanRunAddAlarm] = useState(true);
-
-  const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true); // Default value
+  const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true);
+  const [username, setUsername] = useState("Your Username");
 
   useEffect(() => {
     AsyncStorage.getItem('alarmWhilePuzzle').then((value) => {
@@ -20,7 +20,26 @@ const HomeScreen = () => {
         setAlarmWhilePuzzle(JSON.parse(value)); // Retrieving value from AsyncStorage
       }
     });
+
+    AsyncStorage.getItem('username').then((value) => {
+      if (value !== null) {
+        setUsername(value);
+      }
+    });
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      AsyncStorage.getItem('username').then((value) => {
+        if (value !== null) {
+          setUsername(value);
+        }
+      });
+  
+      // return statement serves like componentWillUnmount
+      return () => {};
+    }, [])
+  );
 
   const toggleSwitch = (id, isEnabled) => {
     setAlarms(alarms.map((alarm) => {
@@ -100,10 +119,8 @@ const HomeScreen = () => {
 
   // Sort alarms by time
   const sortedAlarms = alarms.sort((a, b) => new Date(a.settings.time) - new Date(b.settings.time));
-
   
   const [currentTime, setCurrentTime] = useState(new Date());  
-
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -158,7 +175,7 @@ const HomeScreen = () => {
       <SafeAreaView className="bg-[#303840] flex-1">
         <View className="h-full mt-8">
           <TouchableOpacity onPress={() => {console.log(alarmWhilePuzzle) }}>
-            <Text className="my-16 text-2xl text-center text-white font-bold"> Hello Tinypixel</Text>
+            <Text className="my-16 text-2xl text-center text-white font-bold"> Hello {username}</Text>
           </TouchableOpacity>
           <ScrollView className="mx-5">
             {/* This is where the Alarms go! */}

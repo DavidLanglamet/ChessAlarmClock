@@ -1,7 +1,20 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Profile = ({navigation}) => {
+
+  const [username, setUsername] = useState("Your Username");
+
+  useEffect(() => {
+    AsyncStorage.getItem('username').then((value) => {
+      if (value !== null) {
+        setUsername(value);
+      }
+    });
+  }, []);
+
   return (
     <View className="bg-[#303840] flex-1">
       <Image source={require('../assets/tempBanner2.png')} className="w-screen h-72" />
@@ -19,11 +32,11 @@ const Profile = ({navigation}) => {
           </View>
           <View className="items-center">
             <Text className="text-white text-4xl">195</Text>
-            <Text className="text-white text-base">days streak</Text>
+            <Text className="text-white text-base">puzzles solved</Text>
           </View>
         </View>
       </View>
-      <Text style={{ bottom: 74 }} className="absolute left-10 m-2 text-white text-lg">tinypixel</Text>
+      <Text style={{ bottom: 74 }} className="absolute left-10 m-2 text-white text-lg">{username}</Text>
       <TouchableOpacity className="absolute bottom-16 right-10 m-2" onPress={() => navigation.goBack()} >
         <Image source={require('../assets/back.png')} className="h-12 w-12" />
       </TouchableOpacity>
