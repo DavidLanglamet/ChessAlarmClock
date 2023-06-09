@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, TextInput, Linking } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -192,7 +192,7 @@ const Settings = ({ navigation }) => {
   </View>
 
   <View className="items-center">
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => Linking.openURL('https://www.buymeacoffee.com/felifromgermany')}>
       <View style={{ borderBottomWidth: 6 }} className="items-center rounded-xl bg-[#59626e] px-6 py-2 w-1/2 border-[#47ff2e]">
         <Text className="text-[#47ff2e] text-xl tracking-widest">Tip Jar for</Text>
         <Text className="text-[#47ff2e] text-xl tracking-widest">DinDing-D4</Text>

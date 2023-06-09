@@ -1,17 +1,21 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { AppState, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { WebView } from 'react-native-webview';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SoundContext } from "../components/SoundContext";
 
-const ChessScreen = () => {
+const ChessScreen = ({ route }) => {
 
+  const isFocused = useIsFocused();
+  const { alarmWhilePuzzle } = route.params;
   const navigation = useNavigation();
   const [key, setKey] = useState(0);
   const webviewRef = useRef(null);
   const [selectedPuzzleCount, setSelectedPuzzleCount] = useState('1');
   const [selectedType, selectType] = useState("https://lichess.org/training/mateIn1");
+  const [appState, setAppState] = useState(AppState.currentState);
+
 
   useEffect(() => {
     AsyncStorage.getItem('selectedPuzzleCount').then((value) => {
@@ -27,6 +31,35 @@ const ChessScreen = () => {
     });
   }, []);
 
+  const { stopSound } = useContext(SoundContext);
+
+  useEffect(() => {
+    AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      AppState.removeEventListener("change", handleAppStateChange);
+    };
+  }, []);
+
+  const handleAppStateChange = (nextAppState) => {
+    setAppState(nextAppState);
+  };
+
+  useEffect(() => {
+    let mounted = true;
+
+    if (mounted && alarmWhilePuzzle === false && isFocused && appState === "active") {
+      if (stopSound) {
+        console.log(alarmWhilePuzzle);
+        stopSound();
+      }
+    }
+    
+    return () => {
+      mounted = false;
+    };
+  }, [alarmWhilePuzzle, stopSound, isFocused, appState]);
+  
   const onMessage = (event) => {
     const message = event.nativeEvent.data;
     console.log(message);
@@ -45,8 +78,6 @@ const ChessScreen = () => {
       webviewRef.current.injectJavaScript('window.location.reload();');
     }
   };
-
-  const { stopSound } = useContext(SoundContext);
 
   const turnAlarmOff = () => {
     console.log("Turning alarm off...");

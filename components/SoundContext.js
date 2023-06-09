@@ -7,13 +7,24 @@ export const SoundProvider = ({ children }) => {
   const [sound, setSound] = React.useState();
 
   const playSound = async () => {
-    const { sound } = await Audio.Sound.createAsync(
-      require('../assets/Hello.mp3')
-    );
-    setSound(sound);
-    await sound.playAsync();
+    try {
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: false,
+        playsInSilentModeIOS: true,
+        shouldDuckAndroid: true,
+        staysActiveInBackground: true,
+        playThroughEarpieceAndroid: true,
+      });
+      
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/Hello.mp3')
+      );
+      setSound(sound);
+      await sound.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
   };
-  
 
   const stopSound = () => {
     if (sound) {
@@ -22,7 +33,6 @@ export const SoundProvider = ({ children }) => {
       setSound(null);
     }
   };
-  
 
   return (
     <SoundContext.Provider value={{ sound, setSound, playSound, stopSound }}>

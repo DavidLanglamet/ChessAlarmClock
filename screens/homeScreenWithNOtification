@@ -5,6 +5,8 @@ import Alarm from "../components/Alarm"
 import AlarmSettings from '../components/AlarmSettings'
 import { SoundContext } from "../components/SoundContext";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
+import { Audio } from 'expo-av';
 
 const HomeScreen = () => {
 
@@ -32,6 +34,34 @@ const HomeScreen = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const requestPermissions = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        alert('No notification permissions!');
+        return;
+      }
+    };
+  
+    requestPermissions();
+  }, []);  
+
+  const soundObject = new Audio.Sound();
+
+async function loadSoundFile() {
+  try {
+    await soundObject.loadAsync(require('../assets/Hello.mp3'));
+    // You might want to play the sound here to make sure it loads
+    // await soundObject.playAsync();
+  } catch (error) {
+    // An error occurred!
+  }
+}
+
+useEffect(() => {
+  loadSoundFile();
+}, []);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -163,9 +193,24 @@ const HomeScreen = () => {
 
   goToPuzzle = async () => { 
     const latestAlarmWhilePuzzle = JSON.parse(await AsyncStorage.getItem('alarmWhilePuzzle'));
-    playSound();
-    navigation.navigate('ChessScreen', { alarmWhilePuzzle: latestAlarmWhilePuzzle });
+    if (latestAlarmWhilePuzzle) {
+      console.log(latestAlarmWhilePuzzle);
+      
+      // Replace playSound with notification trigger
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Alarm!",
+          body: "It's time for your puzzle!",
+          sound: true, // Add this line to enable sound
+        },
+        trigger: {
+          seconds: 1, // trigger after one second, customize as needed
+        },
+      });
+    }
+    navigation.navigate('ChessScreen');
   }
+  
 
   return (
       <SafeAreaView className="bg-[#303840] flex-1">

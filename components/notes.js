@@ -1,12 +1,10 @@
 // TODO:
 // Make Settings in settings page do what they say
-// alarm should ring and then stop rining depending on alarmWhilePuzzle setting. Does it ring if outside of app / phone turned off?
 // Save all alarms asynchronously/in a way that they stay
-// Link a Paypal to donate button
+// create a buyMeACoffee account
 // MusicProduce alarms and link them in app
 // make the alarm sound loop
 // make the alarmsound picking work
-// Make the username thing work
 // Make the vibration work
 // Piece sound
 // days streak
@@ -35,7 +33,8 @@
 // Hello Tinypixel is clickable to go to chess screen
 // Does the iphone keyboard actually pop up when changing the username?
 
-
+// TO TELL:
+// HOW TO USE THE APP (do not disturb...)
 
 
 
@@ -71,82 +70,3 @@
 // https://github.com/hoaphantn7604/react-native-element-dropdown
 // timePicker for android:
 // https://stackoverflow.com/questions/58925515/using-react-native-community-datetimepicker-how-can-i-display-a-datetime-picker
-
-
-
-
-
-
-
-
-
-import { View, Text, Dimensions } from 'react-native';
-import React from 'react';
-
-const ChessScreen = () => {
-  const screenWidth = Dimensions.get('window').width;
-  const squareSize = screenWidth / 8;
-
-  const renderSquare = (isBlack, piece) => {
-    const squareColor = isBlack ? 'black' : 'white';
-    const pieceColor = isBlack ? 'white' : 'black';
-    const pieceSymbol = piece ? piece : '';
-    return (
-      <View style={{
-        backgroundColor: squareColor,
-        width: squareSize,
-        height: squareSize,
-        transform: [{ rotate: '90deg' }]
-      }}>
-        <Text style={{
-          fontSize: squareSize/2,
-          color: pieceColor,
-          transform: [{ rotate: '-90deg' }]
-        }}>{pieceSymbol}</Text>
-      </View>
-    );
-  };
-
-  const renderRow = (rowIndex) => {
-    const isEvenRow = rowIndex % 2 === 0;
-    const piece = rowIndex === 0 ? '♜' : (rowIndex === 1 ? '♞' : (rowIndex === 6 ? '♘' : (rowIndex === 7 ? '♖' : null)));
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        {renderSquare(isEvenRow, piece)}
-        {renderSquare(!isEvenRow, '♟')}
-        {renderSquare(isEvenRow)}
-        {renderSquare(!isEvenRow)}
-        {renderSquare(isEvenRow)}
-        {renderSquare(!isEvenRow)}
-        {renderSquare(isEvenRow, '♙')}
-        {renderSquare(!isEvenRow, '♗')}
-      </View>
-    );
-  };
-  
-  
-
-  const renderBoard = () => {
-    return (
-      <View>
-        {renderRow(7)}
-        {renderRow(6)}
-        {renderRow(5)}
-        {renderRow(4)}
-        {renderRow(3)}
-        {renderRow(2)}
-        {renderRow(1)}
-        {renderRow(0)}
-      </View>
-    );
-  };
-  
-
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {renderBoard()}
-    </View>
-  );
-};
-
-export default ChessScreen;
