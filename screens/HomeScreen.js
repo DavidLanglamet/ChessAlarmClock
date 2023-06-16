@@ -129,37 +129,44 @@ const HomeScreen = () => {
       return () => clearInterval(intervalId);
     }, []);
 
-  useEffect(() => {
-    // console.log(alarms)
-    const matchedAlarms = alarms.filter((alarm) => {
-      const alarmTime = new Date(alarm.settings.time);
-      return (
-        alarm.settings.isEnabled &&
-        currentTime.getHours() === alarmTime.getHours() &&
-        currentTime.getMinutes() === alarmTime.getMinutes()
-      );
-   });
-
-    if (matchedAlarms.length > 0 && !modalVisible) {
-      if (!canRunPuzzle) {
-        console.log('Function is on cooldown');
-        return;
-      }
-
-      matchedAlarms.forEach((alarm) => {
-        if (alarm.settings.repeatDays.length === 0) {
-          toggleSwitch(alarm.id, false);
+    useEffect(() => {
+      const matchedAlarms = alarms.filter((alarm) => {
+        const alarmTime = new Date(alarm.settings.time);
+        let today = currentTime.getDay();
+        if(today === 0) {
+            today = 6;
+        } else {
+            today = today - 1;
         }
+        return (
+          alarm.settings.isEnabled &&
+          currentTime.getHours() === alarmTime.getHours() &&
+          currentTime.getMinutes() === alarmTime.getMinutes() &&
+          (alarm.settings.repeatDays.length === 0 || alarm.settings.repeatDays.includes(today))
+        );
       });
     
-      goToPuzzle();
+      if (matchedAlarms.length > 0 && !modalVisible) {
+        if (!canRunPuzzle) {
+          console.log('Function is on cooldown');
+          return;
+        }
     
-      setCanRunPuzzles(false);
-      setTimeout(() => {
-        setCanRunPuzzles(true);
-      }, 62000);
-    }
-  }, [currentTime]);
+        matchedAlarms.forEach((alarm) => {
+          if (alarm.settings.repeatDays.length === 0) {
+            toggleSwitch(alarm.id, false);
+          }
+        });
+      
+        goToPuzzle();
+      
+        setCanRunPuzzles(false);
+        setTimeout(() => {
+          setCanRunPuzzles(true);
+        }, 62000);
+      }
+    }, [currentTime]);
+    
 
   goToPuzzle = async () => { 
     const latestAlarmWhilePuzzle = JSON.parse(await AsyncStorage.getItem('alarmWhilePuzzle'));

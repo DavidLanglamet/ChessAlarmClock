@@ -2,14 +2,11 @@
 // Make Settings in settings page do what they say
 // Save all alarms asynchronously/in a way that they stay
 // create a buyMeACoffee account
-// MusicProduce alarms and link them in app
-// make the alarm sound loop
-// make the alarmsound picking work
-// Make the vibration work
-// Piece sound
-// days streak
-// puzzles solved
-// VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be diled up though.
+// MusicProduce alarms
+// make the alarmsound picking work (PUT IT IN SETTINGS?)
+// days streak stat
+// puzzles solved stat
+// VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be dialed up though.
 
 // DESING ISSUES:
 // In the settings page the puzzleCount and types dropdown windows are placed through mr-X of the text on the left. Is that the way to go?
@@ -21,12 +18,12 @@
 
 
 // FAILED ATTEMPTS:
-// turn pieceSound off (changing the html doesn't turn the sound off)
+// turn pieceSound off (changing the html doesn't turn the sound off and there's no native way to turn off webview sound)
 
 // POSSIBLE FEATURES:
 // add a little v at the top of the modal to make it clear that you can swipe down and discard changes.
 
-// BUG:
+// BUGS:
 // weirdness when setting username to nothing.
 
 // DON'T FORGET

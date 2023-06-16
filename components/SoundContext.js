@@ -15,12 +15,19 @@ export const SoundProvider = ({ children }) => {
         staysActiveInBackground: true,
         playThroughEarpieceAndroid: true,
       });
-      
+
       const { sound } = await Audio.Sound.createAsync(
-        require('../assets/Hello.mp3')
+        require('../assets/Hello.mp3'),
+        { shouldPlay: true, isLooping: true } // Set shouldPlay and isLooping options
       );
+
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          sound.replayAsync(); // Replay the sound when it finishes
+        }
+      });
+
       setSound(sound);
-      await sound.playAsync();
     } catch (error) {
       console.log(error);
     }
