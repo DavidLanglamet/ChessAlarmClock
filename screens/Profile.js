@@ -7,6 +7,7 @@ const Profile = ({navigation}) => {
 
   const [username, setUsername] = useState("Your Username");
   const [puzzlesSolved, setPuzzlesSolved] = useState(0);
+  const [daysStreak, setDaysStreak] = useState(0);
 
   useEffect(() => {
     AsyncStorage.getItem('username').then((value) => {
@@ -18,6 +19,12 @@ const Profile = ({navigation}) => {
     AsyncStorage.getItem('puzzlesSolved').then((value) => {
       if (value !== null) {
         setPuzzlesSolved(JSON.parse(value)); // parse the string to number
+      }
+    });
+
+    AsyncStorage.getItem('daysStreak').then((value) => {
+      if (value !== null) {
+        setDaysStreak(JSON.parse(value));
       }
     });
   }, []);
@@ -34,7 +41,7 @@ const Profile = ({navigation}) => {
         </Text>
         <View className="flex-row space-x-16 my-5">
           <View className="items-center">
-            <Text className="text-white text-4xl">13</Text>
+            <Text className="text-white text-4xl">{daysStreak}</Text>
             <Text className="text-white text-base">days streak</Text>
           </View>
           <View className="items-center">

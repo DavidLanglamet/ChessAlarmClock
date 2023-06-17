@@ -95,6 +95,41 @@ const ChessScreen = ({ route }) => {
   
     setPuzzlesSolved((prevCount) => prevCount + 1);
   
+    // Get current date
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set hours, minutes and seconds to 0 to compare just dates
+
+    let lastPuzzleDate = await AsyncStorage.getItem('lastPuzzleDate');
+    if (lastPuzzleDate !== null) {
+      lastPuzzleDate = new Date(JSON.parse(lastPuzzleDate));
+      const diffDays = Math.round((currentDate - lastPuzzleDate) / (1000 * 60 * 60 * 24)); // Calculate difference in days
+
+      let streak = await AsyncStorage.getItem('daysStreak');
+      streak = streak !== null ? JSON.parse(streak) : 0;
+
+      // If the difference is 1, increment the streak. If more, reset the streak
+      if (diffDays === 1) {
+        streak += 1;
+      } else if (diffDays > 1) {
+        streak = 0;
+      } else if (streak == 0) {
+        streak = 1;
+      }
+
+      try {
+        await AsyncStorage.setItem('daysStreak', JSON.stringify(streak));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Save current date as lastPuzzleDate
+    try {
+      await AsyncStorage.setItem('lastPuzzleDate', JSON.stringify(currentDate.toString()));
+    } catch (e) {
+      console.error(e);
+    }
+
     try {
       await AsyncStorage.setItem('puzzlesSolved', JSON.stringify(puzzlesSolved + 1));
     } catch (e) {
