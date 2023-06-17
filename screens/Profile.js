@@ -6,11 +6,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Profile = ({navigation}) => {
 
   const [username, setUsername] = useState("Your Username");
+  const [puzzlesSolved, setPuzzlesSolved] = useState(0);
 
   useEffect(() => {
     AsyncStorage.getItem('username').then((value) => {
       if (value !== null) {
         setUsername(value);
+      }
+    });
+
+    AsyncStorage.getItem('puzzlesSolved').then((value) => {
+      if (value !== null) {
+        setPuzzlesSolved(JSON.parse(value)); // parse the string to number
       }
     });
   }, []);
@@ -31,7 +38,7 @@ const Profile = ({navigation}) => {
             <Text className="text-white text-base">days streak</Text>
           </View>
           <View className="items-center">
-            <Text className="text-white text-4xl">195</Text>
+            <Text className="text-white text-4xl">{puzzlesSolved}</Text>
             <Text className="text-white text-base">puzzles solved</Text>
           </View>
         </View>

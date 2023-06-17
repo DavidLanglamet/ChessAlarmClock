@@ -177,7 +177,7 @@ const HomeScreen = () => {
   return (
       <SafeAreaView className="bg-[#303840] flex-1">
         <View className="h-full mt-8">
-          <TouchableOpacity onPress={() => {console.log(sortedAlarms) }}>
+          <TouchableOpacity onPress={() => {console.log(alarms) }}>
             <Text className="my-16 text-2xl text-center text-white font-bold"> Hello {username}</Text>
           </TouchableOpacity>
           <ScrollView className="mx-5">

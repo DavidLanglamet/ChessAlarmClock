@@ -15,7 +15,8 @@ const ChessScreen = ({ route }) => {
   const [selectedPuzzleCount, setSelectedPuzzleCount] = useState('1');
   const [selectedType, selectType] = useState("https://lichess.org/training/mateIn1");
   const [appState, setAppState] = useState(AppState.currentState);
-
+  const [puzzlesSolved, setPuzzlesSolved] = useState(0);
+  const [hasTurnedAlarmOff, setHasTurnedAlarmOff] = useState(false);
 
   useEffect(() => {
     AsyncStorage.getItem('selectedPuzzleCount').then((value) => {
@@ -27,6 +28,12 @@ const ChessScreen = ({ route }) => {
     AsyncStorage.getItem('selectedType').then((value) => {
       if (value !== null) {
         selectType(value);
+      }
+    });
+
+    AsyncStorage.getItem('puzzlesSolved').then((value) => {
+      if (value !== null) {
+        setPuzzlesSolved(JSON.parse(value));
       }
     });
   }, []);
@@ -63,29 +70,40 @@ const ChessScreen = ({ route }) => {
   const onMessage = (event) => {
     const message = event.nativeEvent.data;
     console.log(message);
-    
+  
     const text = message.replace(/<[^>]*>/g, ''); // Extract text content from HTML
   
     // Count the number of occurrences of "true" in the message
     const count = (message.match(/true/gi) || []).length;
-
-    // If there are selectedPuzzleCount occurrences of "true", call the turnAlarmOff function
-    if (count == selectedPuzzleCount) {
+  
+    if (!hasTurnedAlarmOff && count == selectedPuzzleCount) {
+      setHasTurnedAlarmOff(true); // Set flag to true
       turnAlarmOff();
     }
-
+  
     if (message === 'clearCache') {
       webviewRef.current.injectJavaScript('window.location.reload();');
     }
   };
+  
 
-  const turnAlarmOff = () => {
+  const turnAlarmOff = async () => {
     console.log("Turning alarm off...");
     if (stopSound) {
       stopSound();
     }
+  
+    setPuzzlesSolved((prevCount) => prevCount + 1);
+  
+    try {
+      await AsyncStorage.setItem('puzzlesSolved', JSON.stringify(puzzlesSolved + 1));
+    } catch (e) {
+      console.error(e);
+    }
+  
     navigation.navigate("MemeScreen");
   };
+  
 
   const injectedJavaScript = `
     // Hide unwanted elements
