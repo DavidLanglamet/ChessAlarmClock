@@ -1,4 +1,4 @@
-import { AppState, View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { AppState, View, Text, SafeAreaView, Vibration } from 'react-native';
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -88,6 +88,7 @@ const ChessScreen = ({ route }) => {
   
 
   const turnAlarmOff = async () => {
+    Vibration.cancel();
     console.log("Turning alarm off...");
     if (stopSound) {
       stopSound();

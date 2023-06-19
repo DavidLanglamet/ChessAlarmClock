@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking, Touchable } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image, Linking, Vibration } from 'react-native'
 import React, { useLayoutEffect, useState, useEffect, useContext } from 'react'
 import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import Alarm from "../components/Alarm"
@@ -168,6 +168,7 @@ const HomeScreen = () => {
     }, [currentTime]);
 
   goToPuzzle = async () => { 
+    Vibration.vibrate([500, 500], true);
     const latestAlarmWhilePuzzle = JSON.parse(await AsyncStorage.getItem('alarmWhilePuzzle'));
     playSound();
     navigation.navigate('ChessScreen', { alarmWhilePuzzle: latestAlarmWhilePuzzle });

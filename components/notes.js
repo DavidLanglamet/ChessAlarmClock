@@ -1,6 +1,7 @@
 // TODO:
-// Make Settings in settings page do what they say
+// Make an information page (top right of settings maybe?) with how to use the app (turn on DND...)
 // Save all alarms asynchronously/in a way that they stay
+// create a landing page
 // create a buyMeACoffee account
 // MusicProduce alarms and add them
 // days streak stat (verify)
