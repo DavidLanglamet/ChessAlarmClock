@@ -166,7 +166,6 @@ const HomeScreen = () => {
         }, 62000);
       }
     }, [currentTime]);
-    
 
   goToPuzzle = async () => { 
     const latestAlarmWhilePuzzle = JSON.parse(await AsyncStorage.getItem('alarmWhilePuzzle'));

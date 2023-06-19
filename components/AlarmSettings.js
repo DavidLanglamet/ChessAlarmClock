@@ -7,22 +7,11 @@ const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 const heightAdjustmentModal = 400 - screenWidth;
 
-const alarmSounds = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-];
-
 const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAlarmId, alarmSettings, deleteAlarm, isEnabled }) => {
   const [date, setDate] = useState(alarmSettings?.time || new Date(1598051730000));
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [DaysAreVisible, setDaysVisible] = useState(false);
-  const [selectedAlarmSound, setSelectedAlarmSound] = useState(alarmSettings?.alarmSound || alarmSounds[0]);
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [boxColors, setBoxColors] = useState([
@@ -50,7 +39,6 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
       saveSettings(currentAlarmId, {
         time: date,
         repeatDays: repeatDays,
-        alarmSound: selectedAlarmSound,
         daysAreVisible: DaysAreVisible,
         isEnabled: isEnabled,
       });
@@ -59,7 +47,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 
   const resetState = () => {
     setDate(alarmSettings?.time || new Date(1598051730000));
-    setSelectedAlarmSound(alarmSettings?.alarmSound || null);
+    //setSelectedAlarmSound(alarmSettings?.alarmSound || null);
     setDaysVisible(alarmSettings?.daysAreVisible || false);
     setBoxColors([
       alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
@@ -93,7 +81,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 
   useEffect(() => {
     setDate(alarmSettings?.time || new Date(1598051730000));
-    setSelectedAlarmSound(alarmSettings?.alarmSound || null);
+    // setSelectedAlarmSound(alarmSettings?.alarmSound || null); REMOVED AFTER MOVING THIS SELECTION TO SETTINGS
     setDaysVisible(alarmSettings?.daysAreVisible || false);
     setBoxColors([
       alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
@@ -116,7 +104,7 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
           setModalVisible(!modalVisible);
         }}>
         <View>
-          <TouchableOpacity style={{height: screenHeight/3 - 3*Math.max(0, heightAdjustmentModal)}} onPress={closeModal} />
+          <TouchableOpacity style={{height: screenHeight/2.5 - 3*Math.max(0, heightAdjustmentModal)}} onPress={closeModal} />
           <View>
             <View className="bg-[#1d2127] rounded-3xl h-screen">
               <Text className="text-white my-3 font-bold text-base text-center">Alarm Settings</Text>
@@ -132,29 +120,8 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
                   onChange={onChange}
                 />
               </View>
-              <View className="my-3 w-2/3 ml-auto mr-auto">
-                <Dropdown
-                  style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
-                  placeholderStyle={styles.placeholderStyle}
-                  selectedTextStyle={styles.selectedTextStyle}
-                  inputSearchStyle={styles.inputSearchStyle}
-                  iconStyle={styles.iconStyle}
-                  data={alarmSounds}
-                  maxHeight={200}
-                  labelField="label"
-                  valueField="value"
-                  placeholder={!isFocus && value ? alarmSounds.find(sound => sound.value === value).label : (!isFocus ? 'Alarm Sound' : '...')}
-                  onFocus={() => setIsFocus(true)}
-                  onBlur={() => setIsFocus(false)}
-                  value={selectedAlarmSound}
-                  onChange={item => {
-                    setSelectedAlarmSound(item.value);
-                    setIsFocus(false);
-                  }}
-                />
-              </View>
-              <View className="h-32">
-                <TouchableOpacity className="flex-row space-x-36 justify-center my-2 p-2" onPress={() => setDaysVisible(!DaysAreVisible)}>
+              <View className="h-36">
+                <TouchableOpacity className="flex-row space-x-36 justify-center my-3 p-2" onPress={() => setDaysVisible(!DaysAreVisible)}>
                   <Text className="text-white text-lg">Repeat</Text>
                   <View className="flex-row space-x-4">
                     <Text className={DaysAreVisible === true ? "text-white text-lg" : "text-[#797979] text-lg"}>on</Text>

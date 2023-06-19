@@ -2,17 +2,17 @@
 // Make Settings in settings page do what they say
 // Save all alarms asynchronously/in a way that they stay
 // create a buyMeACoffee account
-// MusicProduce alarms
-// make the alarmsound picking work (PUT IT IN SETTINGS?)
-// days streak stat
-// puzzles solved stat
+// MusicProduce alarms and add them
+// days streak stat (verify)
+// make button clickable areas bigger
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be dialed up though.
 
 // DESING ISSUES:
+// go back icon (and placement)
 // In the settings page the puzzleCount and types dropdown windows are placed through mr-X of the text on the left. Is that the way to go?
 // Fix design for different screen sizes.
 // in the settings page, the y margin between items is not mathematically correct because of the puzzles dropdown.
-// drop down zahlen zentriert. vielleicht schmaler? Farbe ändern?
+// drop down zahlen zentriert. vielleicht schmaler? Farbe ändern? Dropdown fenster zentrieren bzw bis zur mitte
 // Profile button gleich positioniert wie go back buttons
 // Modal height is set up in a very sketchy way maybe. Before that version it was just className="h-1/4" instead of <TouchableOpacity style={{height: screenHeight/3 - 3*Math.max(0, heightAdjustmentModal)}} onPress={closeModal} />
 
@@ -35,6 +35,48 @@
 
 
 
+
+
+
+// GPT result for asynchronous alarms
+
+/*
+
+useEffect(() => {
+    (async () => {
+      try {
+        await AsyncStorage.setItem('alarms', JSON.stringify(alarms));
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [alarms]);
+
+*/
+
+/*
+  useEffect(() => {
+    AsyncStorage.getItem('alarmWhilePuzzle').then((value) => {
+      if (value !== null) {
+        setAlarmWhilePuzzle(JSON.parse(value));
+      }
+    });
+
+    AsyncStorage.getItem('username').then((value) => {
+      if (value !== null) {
+        setUsername(value);
+      }
+    });
+
+    AsyncStorage.getItem('alarms').then((value) => {
+      if (value !== null) {
+        setAlarms(JSON.parse(value));
+      }
+    });
+  }, []);
+
+
+*/
 
 
 
