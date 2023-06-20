@@ -14,12 +14,57 @@ const HomeScreen = () => {
   const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true);
   const [username, setUsername] = useState("Your Username");
   const navigation = useNavigation();
-  const [alarms, setAlarms] = useState([]);
+  const [alarms, setAlarms] = useState(() => {
+    // Fetch the alarms when initializing state
+    loadAlarms();
+    // Initialize to an empty array
+    return [];
+  });
   const [modalVisible, setModalVisible] = useState(false);
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
   const [currentAlarmSettings, setCurrentAlarmSettings] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  async function loadAlarms() {
+    const storedAlarms = await AsyncStorage.getItem('alarms');
+    if (storedAlarms !== null) {
+      setAlarms(JSON.parse(storedAlarms));
+    }
+  }
 
   useEffect(() => {
+    AsyncStorage.setItem('alarms', JSON.stringify(alarms)).then(() => {
+      setLoading(false);
+    });
+  }, [alarms]);
+
+  useEffect(() => {
+    if (!loading) {
+      AsyncStorage.getItem('alarms').then((storedAlarms) => {
+        if (storedAlarms !== null) {
+          let parsedAlarms = JSON.parse(storedAlarms);
+          parsedAlarms = parsedAlarms.map(alarm => {
+            alarm.settings.time = new Date(alarm.settings.time);
+            return alarm;
+          });
+          setAlarms(parsedAlarms);
+        }        
+      });
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    AsyncStorage.getItem('alarms').then((alarms) => {
+      if (alarms !== null) {
+        let parsedAlarms = JSON.parse(alarms);
+        parsedAlarms = parsedAlarms.map(alarm => {
+          alarm.settings.time = new Date(alarm.settings.time);
+          return alarm;
+        });
+        setAlarms(parsedAlarms);
+      }      
+    });
+
     AsyncStorage.getItem('alarmWhilePuzzle').then((value) => {
       if (value !== null) {
         setAlarmWhilePuzzle(JSON.parse(value));
@@ -47,7 +92,7 @@ const HomeScreen = () => {
   );
 
   const toggleSwitch = (id, isEnabled) => {
-    setAlarms(alarms.map((alarm) => {
+    setAlarms(prevAlarms => prevAlarms.map((alarm) => {
       if (alarm.id === id) {
         return {
           ...alarm,
@@ -81,8 +126,9 @@ const HomeScreen = () => {
         isEnabled: true,
       },
     };
+
     setCurrentAlarmId(newAlarm.id);
-    setAlarms([...alarms, newAlarm]);
+    setAlarms(prevAlarms => [...prevAlarms, newAlarm]);
     setModalVisible(true);
 
     setCanRunAddAlarm(false);
@@ -98,12 +144,12 @@ const HomeScreen = () => {
   };
 
   const saveSettings = (id, settings) => {
-    setAlarms(alarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
+    setAlarms(prevAlarms => prevAlarms.map((alarm) => (alarm.id === id ? { ...alarm, settings } : alarm)));
   };
 
   const deleteAlarm = (id) => {
     const filteredAlarms = alarms.filter((alarm) => alarm.id !== id);
-    setAlarms(filteredAlarms);
+    setAlarms(prevAlarms => prevAlarms.filter((alarm) => alarm.id !== id));
   };
 
   useLayoutEffect(() => {

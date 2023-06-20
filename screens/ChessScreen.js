@@ -57,7 +57,6 @@ const ChessScreen = ({ route }) => {
 
     if (mounted && alarmWhilePuzzle === false && isFocused && appState === "active") {
       if (stopSound) {
-        console.log(alarmWhilePuzzle);
         stopSound();
       }
     }
@@ -69,7 +68,6 @@ const ChessScreen = ({ route }) => {
   
   const onMessage = (event) => {
     const message = event.nativeEvent.data;
-    console.log(message);
   
     const text = message.replace(/<[^>]*>/g, ''); // Extract text content from HTML
   

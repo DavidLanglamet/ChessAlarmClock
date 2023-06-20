@@ -51,17 +51,22 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress, toggleSwitch }) => {
     >
       <TouchableOpacity onPress={() => { handleAlarmPress(alarm.id); console.log(isEnabled)}}>
       <View style={{ borderBottomWidth: 6 }}className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-[#48505a]">
-                  <View className="flex-1">
-            <Text className="text-white text-5xl tracking-widest">{alarm.settings.time ? alarm.settings.time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : ''}</Text>
-            <Text className="text-white text-sm">{repeatDaysText()}</Text>
-          </View>
-          <Switch
-              trackColor={{true: "#4ade80", false: "#dcdcdc"}}
-              thumbColor={isEnabled ? "#FFF" : "#FFF"}
-              ios_backgroundColor="#dcdcdc"
-              onValueChange={onToggleSwitch}
-              value={isEnabled}
-          />
+        <View className="flex-1">
+          <Text className="text-white text-5xl tracking-widest">
+              {alarm.settings.time 
+                ? new Date(alarm.settings.time).toLocaleTimeString([], 
+                  { hour: '2-digit', minute: '2-digit', hour12: false }) 
+                : ''}
+          </Text>            
+          <Text className="text-white text-sm">{repeatDaysText()}</Text>
+        </View>
+        <Switch
+            trackColor={{true: "#4ade80", false: "#dcdcdc"}}
+            thumbColor={isEnabled ? "#FFF" : "#FFF"}
+            ios_backgroundColor="#dcdcdc"
+            onValueChange={onToggleSwitch}
+            value={isEnabled}
+        />
         </View>
       </TouchableOpacity>
     </Swipeable>
