@@ -68,6 +68,7 @@ const ChessScreen = ({ route }) => {
   
   const onMessage = (event) => {
     const message = event.nativeEvent.data;
+    console.log(message);
   
     const text = message.replace(/<[^>]*>/g, ''); // Extract text content from HTML
   
@@ -140,12 +141,14 @@ const ChessScreen = ({ route }) => {
   
 
   const injectedJavaScript = `
-    // Hide unwanted elements
-    var element = document.querySelector('header#top');
+  var element = document.querySelector('header#top');
     if (element) {
       element.style.display = 'none';
     }
 
+  window.onload = function() {
+    // Hide unwanted elements
+    
     // SHOW THIS? TO SEE SOLUTION AND STUFF.
     /*
     var puzzleTools = document.querySelector('.puzzle__tools');
@@ -181,8 +184,10 @@ const ChessScreen = ({ route }) => {
     if (body) {
       body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
       // body.setAttribute("data-sound-set", "silent");
+    }
   }
-  `;
+`;
+
 
   const clearCacheAndReset = () => {
     webviewRef.current.postMessage('clearCache');

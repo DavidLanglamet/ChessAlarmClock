@@ -1,11 +1,11 @@
 // TODO:
 // Make an information page (top right of settings maybe?) with how to use the app (turn on DND...)
-// Save all alarms asynchronously/in a way that they stay
 // create a landing page
 // create a buyMeACoffee account
 // MusicProduce alarms and add them
 // days streak stat (verify)
 // make button clickable areas bigger
+// make sure you can't swipe out of the alarm. (from left to right)
 // VERY IMPORTANT: No sound bug: switching silent mode off and on again fixes it. Sound needs to be dialed up though.
 
 // DESING ISSUES:
