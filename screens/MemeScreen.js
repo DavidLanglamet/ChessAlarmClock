@@ -10,7 +10,9 @@ const LogInScreen = ({navigation}) => {
             Have A Great Day Champ!
           </Text>
           <View className="self-center">
-            <Image source={require('../assets/Magnus.png')} style={{ marginBottom: 20 }} />
+            <Image source={require('../assets/Magnus.png')}
+            style={{ width: 300, height: 300, marginBottom: 20 }}
+            />
           </View>
         </TouchableOpacity>
 </SafeAreaView>

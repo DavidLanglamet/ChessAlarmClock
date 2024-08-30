@@ -182,8 +182,8 @@ const ChessScreen = ({ route }) => {
 
     var body = document.querySelector('body');
     if (body) {
-      body.className = 'dark Woodi Basic coords-in zenable playing online blue2';
-      // body.setAttribute("data-sound-set", "silent");
+      body.setAttribute('data-board', 'blue2'); // Set the data-board attribute to blue2
+      // body.className = 'dark Woodi Basic coords-in zenable playing online blue2'; // Optionally set the class as well
     }
   }
 `;
