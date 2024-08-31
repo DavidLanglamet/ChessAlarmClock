@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Text, View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Dropdown } from 'react-native-element-dropdown';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -81,7 +80,6 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
 
   useEffect(() => {
     setDate(alarmSettings?.time || new Date(1598051730000));
-    // setSelectedAlarmSound(alarmSettings?.alarmSound || null); REMOVED AFTER MOVING THIS SELECTION TO SETTINGS
     setDaysVisible(alarmSettings?.daysAreVisible || false);
     setBoxColors([
       alarmSettings?.repeatDays.includes(0) ? '#70d24e' : '#282e36', // Mo
@@ -176,40 +174,5 @@ const AlarmSettings = ({ modalVisible, setModalVisible, saveSettings, currentAla
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  dropdown: {
-    height: 50,
-    borderColor: 'gray',
-    borderWidth: 0.5,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-  },
-  label: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    left: 22,
-    top: 8,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    fontSize: 14,
-  },
-  placeholderStyle: {
-    fontSize: 18,
-    color: 'white',
-  },
-  selectedTextStyle: {
-    fontSize: 18,
-    color: 'white',
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
-  },
-  inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
-  },
-});
 
 export default AlarmSettings;

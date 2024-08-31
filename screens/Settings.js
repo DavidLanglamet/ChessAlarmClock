@@ -20,13 +20,13 @@ const puzzleType = [
 ];
 
 const alarmSounds = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
+  { label: 'Bubbles', value: '1' },
+  { label: 'Garage', value: '2' },
+  { label: 'Annoying', value: '3' },
+  { label: 'Soothing', value: '4' },
+  { label: 'Birds', value: '5' },
+  { label: 'Nature', value: '6' },
+  { label: 'Digital', value: '7' },
 ];
 
 const Settings = ({ navigation, alarmSettings }) => {
@@ -234,7 +234,7 @@ const Settings = ({ navigation, alarmSettings }) => {
       </View>
     </View>
     <View className="items-center">
-      <TouchableOpacity onPress={() => Linking.openURL('https://www.buymeacoffee.com/felifromgermany')}>
+      <TouchableOpacity onPress={() => Linking.openURL('https://www.buymeacoffee.com')}>
         <View style={{ borderBottomWidth: 6 }} className="items-center rounded-xl bg-[#59626e] px-6 py-2 w-1/2 border-[#47ff2e]">
           <Text className="text-[#47ff2e] text-lg tracking-widest">Tip Jar for</Text>
           <Text className="text-[#47ff2e] text-lg tracking-widest">DingDing-d4</Text>

@@ -8,7 +8,6 @@ import { StatusBar } from 'expo-status-bar';
 import Settings from './screens/Settings';
 import Profile from './screens/Profile';
 import ChessScreen from './screens/ChessScreen';
-import LogInScreen from './screens/LogInScreen';
 import MemeScreen from './screens/MemeScreen';
 import { SoundProvider } from "./components/SoundContext";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -41,14 +40,6 @@ function App() {
             <Stack.Screen
               name="ChessScreen"
               component={ChessScreen}
-              options={{
-                headerShown: false,
-                gestureDirection: 'horizontal-inverted',
-              }}
-            />
-            <Stack.Screen
-              name="LogInScreen"
-              component={LogInScreen}
               options={{
                 headerShown: false,
                 gestureDirection: 'horizontal-inverted',

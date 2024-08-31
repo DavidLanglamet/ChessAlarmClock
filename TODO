@@ -1,0 +1,18 @@
+TODO:
+Create a landing page to greet users and explain things for when they open the app for the first time.
+Make an information page (top right of settings maybe?) with how to use the app (turn on DND mode...).
+Make the piece noise setting work.
+Make the vibration while puzzle setting work.
+Create a buyMeACoffee account.
+MusicProduce 5 more alarms and add them.
+Verify that days streak is working correctly.
+Make button clickable areas slightly bigger.
+Make sure you can't swipe out of the alarm (from left to right).
+Fix design for different screen sizes?
+Center the dropdown numbers in settings and maybe change the background of the dropdown menu.
+
+BUGS:
+Weirdness when setting username to nothing.
+
+DON'T FORGET BEFORE RELEASING
+Hello Username is still clickable.

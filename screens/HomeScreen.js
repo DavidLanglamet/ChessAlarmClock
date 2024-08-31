@@ -14,12 +14,11 @@ const HomeScreen = () => {
   const [alarmWhilePuzzle, setAlarmWhilePuzzle] = useState(true);
   const [username, setUsername] = useState("Your Username");
   const navigation = useNavigation();
-  const [alarms, setAlarms] = useState(() => {
-    // Fetch the alarms when initializing state
-    loadAlarms();
-    // Initialize to an empty array
-    return [];
-  });
+  const [alarms, setAlarms] = useState([]);
+    useEffect(() => {
+      loadAlarms();
+    }, []);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [currentAlarmId, setCurrentAlarmId] = useState(null);
   const [currentAlarmSettings, setCurrentAlarmSettings] = useState(null);
@@ -48,7 +47,7 @@ const HomeScreen = () => {
             return alarm;
           });
           setAlarms(parsedAlarms);
-        }        
+        }
       });
     }
   }, [loading]);
@@ -178,12 +177,7 @@ const HomeScreen = () => {
     useEffect(() => {
       const matchedAlarms = alarms.filter((alarm) => {
         const alarmTime = new Date(alarm.settings.time);
-        let today = currentTime.getDay();
-        if(today === 0) {
-            today = 6;
-        } else {
-            today = today - 1;
-        }
+        const today = (currentTime.getDay() + 6) % 7;
         return (
           alarm.settings.isEnabled &&
           currentTime.getHours() === alarmTime.getHours() &&
