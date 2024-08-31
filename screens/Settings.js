@@ -170,45 +170,6 @@ const Settings = ({ navigation, alarmSettings }) => {
           <Text className={PieceSound === false ? "text-white text-lg" : "text-[#797979] text-lg"}>off</Text>
         </View>
       </TouchableOpacity>
-      <View className="flex-row py-2 items-center" onPress={handleDropDownPress}>
-        <Text className="text-white text-lg w-1/2">Alarm Sound</Text>
-        <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={alarmSounds}
-          maxHeight={200}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus && value ? alarmSounds.find(sound => sound.value === value).label : (!isFocus ? 'Alarm Sound' : '...')}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          value={selectedAlarmSound}
-          onChange={handleSelectedAlarmChange}
-        />
-      </View>
-      <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
-        <Text className="text-white text-lg w-1/2">Puzzle Count</Text>
-        <Dropdown
-          ref={dropdownRef}
-          style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
-          data={puzzleCount}
-          maxHeight={700}
-          labelField="label"
-          valueField="value"
-          placeholder='Alarm Sound'
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-          value={selectedPuzzleCount}
-          onChange={handlePuzzleCountChange}
-        />
-      </View>
       <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
         <Text className="text-white text-lg w-1/2">Puzzle Type</Text>
         <Dropdown
@@ -229,6 +190,45 @@ const Settings = ({ navigation, alarmSettings }) => {
           onChange={handleTypeChange}
         />        
         </View>
+      <View className="flex-row justify-between space-x-px py-2 items-center" onPress={handleDropDownPress}>
+        <Text className="text-white text-lg w-1/2">Puzzle Count</Text>
+        <Dropdown
+          ref={dropdownRef}
+          style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={puzzleCount}
+          maxHeight={700}
+          labelField="label"
+          valueField="value"
+          placeholder='Alarm Sound'
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          value={selectedPuzzleCount}
+          onChange={handlePuzzleCountChange}
+        />
+      </View>
+      <View className="flex-row py-2 items-center" onPress={handleDropDownPress}>
+        <Text className="text-white text-lg w-1/2">Alarm Sound</Text>
+        <Dropdown
+          style={[styles.dropdown, isFocus && { borderColor: 'gray' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={alarmSounds}
+          maxHeight={200}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus && value ? alarmSounds.find(sound => sound.value === value).label : (!isFocus ? 'Alarm Sound' : '...')}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          value={selectedAlarmSound}
+          onChange={handleSelectedAlarmChange}
+        />
+      </View>
         <View className="flex-row justify-between space-x-px py-2 items-center">
         </View>
       </View>
