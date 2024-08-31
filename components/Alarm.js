@@ -74,6 +74,3 @@ const Alarm = ({ alarm, deleteAlarm, handleAlarmPress, toggleSwitch }) => {
 };
 
 export default Alarm
-
-
-// <View style={{ borderBottomWidth: 6 }}className="flex-row items-center rounded-xl bg-[#59626e] px-6 py-4 my-1 border-[#48505a]">
