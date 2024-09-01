@@ -21,3 +21,5 @@ https://youtube.com/shorts/X0fLw8yvI5U
 
 - **NativeWind for styling:**  
   [NativeWind Overview](https://www.nativewind.dev/overview/)
+# Credits
+Clemens Lotz :: Creator of the [design of the UI](https://www.figma.com/proto/uESWeQ6nHIY9VCm8peBq0z/DingDing_d4?node-id=360-11&starting-point-node-id=349%3A3&comments-enabled=1&locale=en) and collaborator on UX matters
