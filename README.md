@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=X0fLw8yvI5U
 If this first link doesn't work use this one:
 https://youtube.com/shorts/X0fLw8yvI5U
 # Tech Stack
-- **Expo:**  
+- **React Native (Expo):**  
   [Expo Documentation](https://expo.dev/)
 
 - **NativeWind for styling:**  
